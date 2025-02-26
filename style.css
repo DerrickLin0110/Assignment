@@ -1,8 +1,15 @@
-.backgroud{
+.backgroud {
     background-color: rgb(255, 255, 255);
-    }
+}
+
+.logo {
+    color: brown;
+    text-shadow: 2px 2px 5px red
+}
+
+.buttom {
     
-    .logo{
-        color: brown;
-        text-shadow: 2px 2px 5px red
-    }
+    position: relative ;
+    height: 0;
+    left:200px 
+}
