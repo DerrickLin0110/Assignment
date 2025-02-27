@@ -8,8 +8,20 @@
 }
 
 .buttom {
+    position: absolute;
+    top: 30px;
+    right: 16px;
+    font-size: 20px;
     
-    position: relative ;
-    height: 0;
-    left:200px 
+    .LoginBtm{
+    background-color: red;
+}
+    .Register{
+        background-color: red;
+   
+        }
+}
+
+.hero{
+    
 }
