@@ -1,8 +1,8 @@
 .main {
     height: 100%; 
-    background: linear-gradient(to bottom, rgb(14, 11, 11), rgb(226, 130, 130));
-    padding: 20px;
-    text-align: center;
+    background: linear-gradient(to bottom, rgb(80, 45, 45), rgb(226, 130, 130));
+    padding: 5px;
+    
 }
 .logo {
     text-align: left;
@@ -28,8 +28,8 @@
 
     img {
         background-size: cover;
-        height: 1000px;
-        width: 2500px;
+        max-width: 100%;
+        height: auto;
         position: relative;
     }
 
@@ -54,9 +54,14 @@
 }
 
 .feature.section{
-    .movies1{
-
-    }
+  
+  img{
+        margin-top: 20px;
+        position: relative;
+        width: 30%;
+        height: auto;
+  }
+  
 }
 
 .footer.section {
