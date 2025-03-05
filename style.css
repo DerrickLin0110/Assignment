@@ -33,6 +33,7 @@ body {
         max-width: 100%;
         height: auto;
         position: relative;
+        opacity: 0.7;
     }
 
     h2 {
