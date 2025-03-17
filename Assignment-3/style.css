@@ -1,3 +1,6 @@
-.HF{
-     border: 50px solid black;
-}
+.HF {
+     border: 2px solid #000; /* This will add a solid black border of 2px thickness */
+     padding: 10px; /* Optional: adds some space between the border and content */
+     border-radius: 8px; /* Optional: adds rounded corners */
+ }
+ 
