@@ -6,6 +6,7 @@ body {
     padding: 5px;
     text-align: center;
 }
+
 .logo {
     text-align: left;
     color: brown;
@@ -15,6 +16,7 @@ body {
 .buttom {
     display: flex;
     gap: 10px;
+
     .LoginBtm,
     .Register {
         background-color: white;
@@ -22,8 +24,6 @@ body {
         font-size: 16px;
         border-radius: 5px;
     }
-
-
 }
 
 .hero.section {
@@ -37,7 +37,7 @@ body {
     }
 
     h2 {
-       
+
         position: absolute;
         top: 30%;
         left: 50%;
@@ -45,8 +45,9 @@ body {
         color: rgb(0, 0, 0);
         font-size: 50px;
     }
-    p{
-        
+
+    p {
+
         position: absolute;
         top: 50%;
         left: 50%;
@@ -62,15 +63,15 @@ body {
 
 .movie-list {
     display: flex;
-    justify-content: center; 
+    justify-content: center;
     gap: 20px;
-    
+
 }
 
 .movie img {
     width: 400px;
-    height: 600px; 
-    object-fit: cover; 
+    height: 600px;
+    object-fit: cover;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2);
 }
