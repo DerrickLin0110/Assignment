@@ -1,6 +1,21 @@
-.HF {
-     border: 2px solid #000; /* This will add a solid black border of 2px thickness */
-     padding: 10px; /* Optional: adds some space between the border and content */
-     border-radius: 8px; /* Optional: adds rounded corners */
- }
- 
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 20px;
+    }
+    
+    input {
+    margin: 5px;
+    padding: 8px;
+    width: 200px;
+    }
+    
+    button {
+    padding: 8px 12px;
+    cursor: pointer;
+    }
+    
+    p {
+    font-weight: bold;
+    }
+    
