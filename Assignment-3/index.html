@@ -10,54 +10,70 @@
 
 <body>
     <div class="HF">
-        <h3>Heron's Formular</h3>
+        <h3>Heron's Formula</h3>
         <label for="sidea">Side a:</label><br>
-        <input type="number" id="num" name=num"><br>
+        <input type="number" id="sidea" name="sidea"><br>
+
         <label for="sideb">Side b:</label><br>
-        <input type="number" id="num" name="num"><br><br>
+        <input type="number" id="sideb" name="sideb"><br><br>
+
         <label for="sidec">Side c:</label><br>
-        <input type="number" id="num" name="num"><br>
-        <label for="area">Area(Result):</label><br>
-        <input type="number" id="num" name="num"><br>
-        <button class="button">Calculate</button>
+        <input type="number" id="sidec" name="sidec"><br>
+
+        <label for="area">Area (Result):</label><br>
+        <input type="number" id="area" name="area" readonly><br>
+
+        <button class="button" onclick="calculateHeron()">Calculate</button>
     </div>
-    
+
     <div class="AC">
         <h3>Ambiguous Case</h3>
-        <label for="anglea">Angle A:</label><br>
-        <input type="number" id="num" name="num"><br>
-        <label for="sidea">Side A:</label><br>
-        <input type="number" id="num" name="num"><br>
-        <label for="sideb">Side B:</label><br>
-        <input type="number" id="num" name="num"><br>
-        <label for="triangletype">Triangle Type(Result):</label><br>
-        <input type="number" id="num" name="num"><br>
-        <button class="button">Calculate</button>
+        <label for="anglea">Angle A (°):</label><br>
+        <input type="number" id="anglea" name="anglea"><br>
+
+        <label for="sideaAC">Side A:</label><br>
+        <input type="number" id="sideaAC" name="sideaAC"><br>
+
+        <label for="sidebAC">Side B:</label><br>
+        <input type="number" id="sidebAC" name="sidebAC"><br>
+
+        <label for="triangleType">Triangle Type (Result):</label><br>
+        <input type="text" id="triangleType" name="triangleType" readonly><br>
+
+        <button class="button" onclick="calculateAmbiguousCase()">Calculate</button>
     </div>
 
     <div class="NM">
         <h3>Newton's Method</h3>
         <label for="rootguess">Root Guess:</label><br>
-        <input type="number" id="num" name="num"><br>
-        <label for="rootaption">Root Approximation(Result):</label><br>
-        <input type="number" id="num" name="num"><br>
-        <button class="button">Calculate</button>
+        <input type="number" id="rootguess" name="rootguess"><br>
+
+        <label for="rootapprox">Root Approximation (Result):</label><br>
+        <input type="number" id="rootapprox" name="rootapprox" readonly><br>
+
+        <button class="button" onclick="calculateNewtonsMethod()">Calculate</button>
     </div>
 
     <div class="PF">
-        <h3>Polynimial Function</h3>
-        <label for="coefficients">Coefficients:</label><br>
-        <input type="number" id="num" name="num"><br>
-        <label for="exponents">Exponents:</label><br>
-        <input type="number" id="num" name="num"><br>
+        <h3>Polynomial Function</h3>
+        <label for="coefficients">Coefficients (comma separated):</label><br>
+        <input type="text" id="coefficients" name="coefficients"><br>
+
+        <label for="exponents">Exponents (comma separated):</label><br>
+        <input type="text" id="exponents" name="exponents"><br>
+
         <label for="xvalue">X Value:</label><br>
-        <input type="number" id="num" name="num"><br>
-        <label for="pf">Polynimial Function(Result):</label><br>
-        <input type="number" id="num" name="num"><br>
-        <label for="pe">Polynimial Evaluation(Result):</label><br>
-        <input type="number" id="num" name="num"><br>
-        <button class="button">Calculate</button>
+        <input type="number" id="xvalue" name="xvalue"><br>
+
+        <label for="pf">Polynomial Function (Result):</label><br>
+        <input type="number" id="pf" name="pf" readonly><br>
+
+        <label for="pe">Polynomial Evaluation (Result):</label><br>
+        <input type="number" id="pe" name="pe" readonly><br>
+
+        <button class="button" onclick="calculatePolynomialFunction()">Calculate</button>
     </div>
+
 </body>
 
 </html>
