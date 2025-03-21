@@ -11,6 +11,7 @@
 <body>
     <div class="HF">
         <h3>Heron's Formula</h3>
+        <form action="heronsform">
         <label for="sidea">Side a:</label><br>
         <input type="number" id="sidea" name="sidea"><br>
 
@@ -23,7 +24,8 @@
         <label for="area">Area (Result):</label><br>
         <input type="number" id="area" name="area" readonly><br>
 
-        <button class="button" onclick="calculateHeron()">Calculate</button>
+        <input type="submit" value="Calculate" />    
+    </form>
     </div>
 
     <div class="AC">
@@ -40,8 +42,8 @@
         <label for="triangleType">Triangle Type (Result):</label><br>
         <input type="text" id="triangleType" name="triangleType" readonly><br>
 
-        <button class="button" onclick="calculateAmbiguousCase()">Calculate</button>
-    </div>
+        <input type="submit" value="Calculate" />
+        </div>
 
     <div class="NM">
         <h3>Newton's Method</h3>
@@ -51,8 +53,8 @@
         <label for="rootapprox">Root Approximation (Result):</label><br>
         <input type="number" id="rootapprox" name="rootapprox" readonly><br>
 
-        <button class="button" onclick="calculateNewtonsMethod()">Calculate</button>
-    </div>
+        <input type="submit" value="Calculate" />
+        </div>
 
     <div class="PF">
         <h3>Polynomial Function</h3>
@@ -71,7 +73,7 @@
         <label for="pe">Polynomial Evaluation (Result):</label><br>
         <input type="number" id="pe" name="pe" readonly><br>
 
-        <button class="button" onclick="calculatePolynomialFunction()">Calculate</button>
+        <input type="submit" value="Calculate" />
     </div>
 
 </body>
