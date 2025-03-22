@@ -4,78 +4,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Math Calculations</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
     <div class="HF">
         <h3>Heron's Formula</h3>
-        <form action="heronsform">
-        <label for="sidea">Side a:</label><br>
-        <input type="number" id="sidea" name="sidea"><br>
+        <form id="heronsform">
+            <label for="sidea">Side a:</label>
+            <input type="number" id="sidea" name="sidea" required><br>
 
-        <label for="sideb">Side b:</label><br>
-        <input type="number" id="sideb" name="sideb"><br><br>
+            <label for="sideb">Side b:</label>
+            <input type="number" id="sideb" name="sideb" required><br>
 
-        <label for="sidec">Side c:</label><br>
-        <input type="number" id="sidec" name="sidec"><br>
+            <label for="sidec">Side c:</label>
+            <input type="number" id="sidec" name="sidec" required><br>
 
-        <label for="area">Area (Result):</label><br>
-        <input type="number" id="area" name="area" readonly><br>
+            <label for="area">Area (Result):</label>
+            <input type="text" id="area" name="area" readonly><br><br>
 
-        <input type="submit" value="Calculate" />    
-    </form>
+            <button type="submit">Calculate</button>
+        </form>
     </div>
 
     <div class="AC">
         <h3>Ambiguous Case</h3>
-        <label for="anglea">Angle A (°):</label><br>
-        <input type="number" id="anglea" name="anglea"><br>
+        <form id="ambiguousform">
+            <label for="anglea">Angle A (°):</label>
+            <input type="number" id="anglea" name="anglea" required><br>
 
-        <label for="sideaAC">Side A:</label><br>
-        <input type="number" id="sideaAC" name="sideaAC"><br>
+            <label for="sideaAC">Side A:</label>
+            <input type="number" id="sideaAC" name="sideaAC" required><br>
 
-        <label for="sidebAC">Side B:</label><br>
-        <input type="number" id="sidebAC" name="sidebAC"><br>
+            <label for="sidebAC">Side B:</label>
+            <input type="number" id="sidebAC" name="sidebAC" required><br>
 
-        <label for="triangleType">Triangle Type (Result):</label><br>
-        <input type="text" id="triangleType" name="triangleType" readonly><br>
+            <label for="triangleType">Triangle Type (Result):</label>
+            <input type="text" id="triangleType" name="triangleType" readonly><br><br>
 
-        <input type="submit" value="Calculate" />
-        </div>
+            <button type="submit">Calculate</button>
+        </form>
+    </div>
 
     <div class="NM">
         <h3>Newton's Method</h3>
-        <label for="rootguess">Root Guess:</label><br>
-        <input type="number" id="rootguess" name="rootguess"><br>
+        <form id="newtonform">
+            <label for="rootguess">Root Guess:</label>
+            <input type="number" id="rootguess" name="rootguess" required><br>
 
-        <label for="rootapprox">Root Approximation (Result):</label><br>
-        <input type="number" id="rootapprox" name="rootapprox" readonly><br>
+            <label for="rootapprox">Root Approximation (Result):</label>
+            <input type="text" id="rootapprox" name="rootapprox" readonly><br><br>
 
-        <input type="submit" value="Calculate" />
-        </div>
+            <button type="submit">Calculate</button>
+        </form>
+    </div>
 
     <div class="PF">
         <h3>Polynomial Function</h3>
-        <label for="coefficients">Coefficients (comma separated):</label><br>
-        <input type="text" id="coefficients" name="coefficients"><br>
+        <form id="polynomialform">
+            <label for="coefficients">Coefficients (comma separated):</label>
+            <input type="text" id="coefficients" name="coefficients" required><br>
 
-        <label for="exponents">Exponents (comma separated):</label><br>
-        <input type="text" id="exponents" name="exponents"><br>
+            <label for="exponents">Exponents (comma separated):</label>
+            <input type="text" id="exponents" name="exponents" required><br>
 
-        <label for="xvalue">X Value:</label><br>
-        <input type="number" id="xvalue" name="xvalue"><br>
+            <label for="xvalue">X Value:</label>
+            <input type="number" id="xvalue" name="xvalue" required><br>
 
-        <label for="pf">Polynomial Function (Result):</label><br>
-        <input type="number" id="pf" name="pf" readonly><br>
+            <label for="pf">Polynomial Function (Result):</label>
+            <input type="text" id="pf" name="pf" readonly><br>
 
-        <label for="pe">Polynomial Evaluation (Result):</label><br>
-        <input type="number" id="pe" name="pe" readonly><br>
+            <label for="pe">Polynomial Evaluation (Result):</label>
+            <input type="text" id="pe" name="pe" readonly><br><br>
 
-        <input type="submit" value="Calculate" />
+            <button type="submit">Calculate</button>
+        </form>
     </div>
 
+    <script src="script.js"></script>
 </body>
 
 </html>
