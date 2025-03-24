@@ -1,43 +1,50 @@
-document.getElementById("heronsform").addEventListener("submit", (event) => {
-    event.preventDefault();
-    const a = document.getElementById("sidea").value;
-    const b = document.getElementById("sideb").value;
-    const c = document.getElementById("sidec").value;
-
+function calculateHeron(a, b, c) {
     if (a + b > c && a + c > b && b + c > a) {
         const s = (a + b + c) / 2;
-        const area = Math.sqrt(s * (s - a) * (s - b) * (s - c));
-        document.getElementById("area").value = area;
+        return Math.sqrt(s * (s - a) * (s - b) * (s - c)).toFixed(2);
     } else {
-        document.getElementById("area").value = "Invalid triangle sides.";
+        return "Invalid sides";
     }
+}
+
+document.getElementById("heronsform").addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    const a = Number(document.getElementById("sidea").value);
+    const b = Number(document.getElementById("sideb").value);
+    const c = Number(document.getElementById("sidec").value);
+
+
+    const result = calculateHeron(a, b, c);
+
+    document.getElementById("area").value = result;
 });
 
-document.getElementById("ambiguousform").addEventListener("submit", (event) => {
-    event.preventDefault();
-    const angleA = document.getElementById("anglea").value;
-    const sideA = document.getElementById("sideaAC").value;
-    const sideB = document.getElementById("sidebAC").value;
 
+function checkAmbiguousCase(angleA, sideA, sideB) {
     const angleARad = (Math.PI / 180) * angleA;
     const h = sideB * Math.sin(angleARad);
 
-    let result = "No Triangle";
-    if (sideA < h) {
-        result = "No Triangle";
-    } else if (sideA === h) {
-        result = "Right Triangle";
-    } else if (sideA > h && sideA < sideB) {
-        result = "Two Possible Triangles";
-    } else {
-        result = "One Triangle";
-    }
+    if (sideA < h) return "No Triangle";
+    if (sideA === h) return "Right Triangle";
+    if (sideA > h && sideA < sideB) return "Two Possible Triangles";
+    return "One Triangle";
+}
+
+document.getElementById("ambiguousform").addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    const angleA = Number(document.getElementById("anglea").value);
+    const sideA = Number(document.getElementById("sideaAC").value);
+    const sideB = Number(document.getElementById("sidebAC").value);
+
+    const result = checkAmbiguousCase(angleA, sideA, sideB);
+
     document.getElementById("triangleType").value = result;
 });
 
-document.getElementById("newtonform").addEventListener("submit", (event) => {
-    event.preventDefault();
-    let x = document.getElementById("rootguess").value;
+function newtonMethod(initialGuess) {
+    let x = initialGuess;
 
     function f(x) {
         return x * x - 4;
@@ -50,24 +57,42 @@ document.getElementById("newtonform").addEventListener("submit", (event) => {
     for (let i = 0; i < 10; i++) {
         x = x - f(x) / fPrime(x);
     }
-    document.getElementById("rootapprox").value = x;
+    return x.toFixed(5);
+}
+
+document.getElementById("newtonform").addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    const guess = Number(document.getElementById("rootguess").value);
+
+    const result = newtonMethod(guess);
+
+    document.getElementById("rootapprox").value = result;
 });
 
-document.getElementById("polynomialform").addEventListener("submit", (event) =>{
-    event.preventDefault();
-    const coefficients = document.getElementById("coefficients").value.split(",").map(Number);
-    const exponents = document.getElementById("exponents").value.split(",").map(Number);
-    const x = document.getElementById("xvalue").value;
-
+function evaluatePolynomial(coefficients, exponents, x) {
     if (coefficients.length !== exponents.length) {
         alert("Mismatch between coefficients and exponents.");
-        return;
+        return "Error";
     }
 
-    const polynomialStr = coefficients.map((coef, index) => `${coef}x^${exponents[index]}`).join(" + ");
-    document.getElementById("pf").value = polynomialStr;
+    return coefficients.reduce((sum, coef, index) => sum + coef * Math.pow(x, exponents[index]), 0).toFixed(2);
+}
 
-    const result = coefficients.reduce((sum, coef, index) => sum + coef * Math.pow(x, exponents[index]), 0);
+function formatPolynomial(coefficients, exponents) {
+    return coefficients.map((coef, index) => `${coef}x^${exponents[index]}`).join(" + ");
+}
+
+document.getElementById("polynomialform").addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    const coefficients = document.getElementById("coefficients").value.split(",").map(Number);
+    const exponents = document.getElementById("exponents").value.split(",").map(Number);
+    const x = Number(document.getElementById("xvalue").value);
+
+    const polynomialString = formatPolynomial(coefficients, exponents);
+    const result = evaluatePolynomial(coefficients, exponents, x);
+
+    document.getElementById("pf").value = polynomialString;
     document.getElementById("pe").value = result;
 });
-
