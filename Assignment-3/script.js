@@ -42,16 +42,15 @@ document.getElementById("ambiguousform").addEventListener("submit", function (ev
 
     document.getElementById("triangleType").value = result;
 });
-
 function newtonMethod(initialGuess) {
     let x = initialGuess;
 
     function f(x) {
-        return x * x - 4;
+        return 6 * Math.pow(x, 4) - 13 * Math.pow(x, 3) - 18 * Math.pow(x, 2) + 7 * x + 6;
     }
 
     function fPrime(x) {
-        return 2 * x;
+        return 24 * Math.pow(x, 3) - 39 * Math.pow(x, 2) - 36 * x + 7;
     }
 
     for (let i = 0; i < 10; i++) {

@@ -1,17 +1,36 @@
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
-    text-align: center;
+    display: grid;
+    grid-template-areas: 
+        "HF AC"
+        "NM PF";
+    grid-gap: 20px;
     padding: 20px;
 }
 
 div {
     background: white;
     padding: 15px;
-    margin: 15px auto;
+    margin: 0;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    max-width: 350px;
+}
+
+.HF {
+    grid-area: HF;
+}
+
+.AC {
+    grid-area: AC;
+}
+
+.NM {
+    grid-area: NM;
+}
+
+.PF {
+    grid-area: PF;
 }
 
 h3 {
