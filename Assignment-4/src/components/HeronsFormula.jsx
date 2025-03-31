@@ -1,4 +1,5 @@
 import { useState } from "react";
+import './style.css'
 
 function HeronCalculator() {
   const [sideA, setSideA] = useState("");
