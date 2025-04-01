@@ -1,8 +1,8 @@
 import React from "react";
 
-import HeronCalculator from "./components/HeronCalculator";
+import HeronCalculator from "./components/HeronsFormula";
 import AmbiguousCase from "./components/AmbiguousCase";
-import NewtonMethod from "./components/NewtonMethod";
+import NewtonMethod from "./components/NewtonsMethod";
 import PolynomialFunction from "./components/PolynomialFunction";
 import "./App.css";
 

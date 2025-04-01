@@ -1,5 +1,4 @@
 import { useState } from "react";
-import './style.css'
 function AmbiguousCase() {
   const [angleA, setAngleA] = useState("");
   const [sideA, setSideA] = useState("");
@@ -24,11 +23,16 @@ function AmbiguousCase() {
     <div className="AC">
       <h3>Ambiguous Case</h3>
       <form onSubmit={handleSubmit}>
-        <input type="number" placeholder="Angle A (°)" value={angleA} onChange={(e) => setAngleA(e.target.value)} required />
-        <input type="number" placeholder="Side A" value={sideA} onChange={(e) => setSideA(e.target.value)} required />
-        <input type="number" placeholder="Side B" value={sideB} onChange={(e) => setSideB(e.target.value)} required />
+      <label htmlFor="a">Angle A (°):</label>
+        <input type="number" id="Angle A (°)" value={angleA} onChange={(e) => setAngleA(e.target.value)} required />
+        <label htmlFor="b">Side A:</label>
+        <input type="number" id="Side A" value={sideA} onChange={(e) => setSideA(e.target.value)} required />
+        <label htmlFor="c">Side B:</label>
+        <input type="number" id="Side B" value={sideB} onChange={(e) => setSideB(e.target.value)} required />
+        <label htmlFor="result">Triangle:</label>
+        <input type="text" value={triangleType} readOnly id="Triangle Type (Result)" />
         <button type="submit">Calculate</button>
-        <input type="text" value={triangleType} readOnly placeholder="Triangle Type (Result)" />
+
       </form>
     </div>
   );

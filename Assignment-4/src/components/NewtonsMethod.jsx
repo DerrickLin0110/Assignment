@@ -1,5 +1,4 @@
 import { useState } from "react";
-import './style.css'
 
 function NewtonMethod() {
   const [guess, setGuess] = useState("");
@@ -21,9 +20,11 @@ function NewtonMethod() {
     <div className="NM">
       <h3>Newton's Method</h3>
       <form onSubmit={handleSubmit}>
-        <input type="number" placeholder="Root Guess" value={guess} onChange={(e) => setGuess(e.target.value)} required />
+      <label htmlFor="a">Root Guess:</label>
+        <input type="number" id="Root Guess" value={guess} onChange={(e) => setGuess(e.target.value)} required />
+        <label htmlFor="result">Root Approximation:</label>
+        <input type="text" value={approximation} readOnly id="Root Approximation (Result)" />
         <button type="submit">Calculate</button>
-        <input type="text" value={approximation} readOnly placeholder="Root Approximation (Result)" />
       </form>
     </div>
   );

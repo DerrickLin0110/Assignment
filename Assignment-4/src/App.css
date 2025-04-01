@@ -1,0 +1,66 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    padding: 20px;
+    margin: 0; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; 
+}
+
+.container {
+    display: grid;
+    grid-template-areas: 
+        "HF AC"
+        "NM PF";
+    grid-gap: 20px;
+    padding: 20px;
+    max-width: 600px; 
+    width: 100%;
+}
+
+div {
+    background: white;
+    padding: 20px;
+    margin: 0;
+    border-radius: 8px;
+}
+
+.HF { grid-area: HF; }
+.AC { grid-area: AC; }
+.NM { grid-area: NM; }
+.PF { grid-area: PF; }
+
+h3 {
+    color: #007BFF;
+}
+
+label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    background: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #0056b3;
+}

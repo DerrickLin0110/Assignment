@@ -1,5 +1,4 @@
 import { useState } from "react";
-import './style.css'
 
 function PolynomialFunction() {
   const [coefficients, setCoefficients] = useState("");
@@ -28,12 +27,18 @@ function PolynomialFunction() {
     <div className="PF">
       <h3>Polynomial Function</h3>
       <form onSubmit={handleSubmit}>
-        <input type="text" placeholder="Coefficients" value={coefficients} onChange={(e) => setCoefficients(e.target.value)} required />
-        <input type="text" placeholder="Exponents" value={exponents} onChange={(e) => setExponents(e.target.value)} required />
-        <input type="number" placeholder="X Value" value={xValue} onChange={(e) => setXValue(e.target.value)} required />
+      <label htmlFor="a">Coffenicents:</label>
+        <input type="text" id="Coefficients" value={coefficients} onChange={(e) => setCoefficients(e.target.value)} required />
+        <label htmlFor="b">Exponents:</label>
+        <input type="text" id="Exponents" value={exponents} onChange={(e) => setExponents(e.target.value)} required />
+        <label htmlFor="c">X Value</label>
+        <input type="number" id="X Value" value={xValue} onChange={(e) => setXValue(e.target.value)} required />
+        <label htmlFor="result">Polynomial Function:</label>
+        <input type="text" value={polynomial} readOnly id="Polynomial Function (Result)" />
+        <label htmlFor="result">Polynomial Evaluation:</label>
+        <input type="text" value={result} readOnly id="Polynomial Evaluation (Result)" />
         <button type="submit">Calculate</button>
-        <input type="text" value={polynomial} readOnly placeholder="Polynomial Function (Result)" />
-        <input type="text" value={result} readOnly placeholder="Polynomial Evaluation (Result)" />
+
       </form>
     </div>
   );

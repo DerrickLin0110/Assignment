@@ -1,6 +1,4 @@
 import { useState } from "react";
-import './style.css'
-
 function HeronCalculator() {
   const [sideA, setSideA] = useState("");
   const [sideB, setSideB] = useState("");
@@ -25,11 +23,15 @@ function HeronCalculator() {
     <div className="HF">
       <h3>Heron's Formula</h3>
       <form onSubmit={handleSubmit}>
-        <input type="number" placeholder="Side A" value={sideA} onChange={(e) => setSideA(e.target.value)} required />
-        <input type="number" placeholder="Side B" value={sideB} onChange={(e) => setSideB(e.target.value)} required />
-        <input type="number" placeholder="Side C" value={sideC} onChange={(e) => setSideC(e.target.value)} required />
+        <label htmlFor="a">Side A:</label>
+        <input type="number" id="Side A" value={sideA} onChange={(e) => setSideA(e.target.value)} required />
+        <label htmlFor="b">Side B:</label>
+        <input type="number" id="Side B" value={sideB} onChange={(e) => setSideB(e.target.value)} required />
+        <label htmlFor="c">Side C:</label>
+        <input type="number" id="Side C" value={sideC} onChange={(e) => setSideC(e.target.value)} required />
+        <label htmlFor="result">Area:</label>
+        <input type="text" value={area} readOnly id="Area (Result)" />
         <button type="submit">Calculate</button>
-        <input type="text" value={area} readOnly placeholder="Area (Result)" />
       </form>
     </div>
   );
