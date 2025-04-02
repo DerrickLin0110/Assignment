@@ -8,7 +8,11 @@ function AmbiguousCase() {
   const checkAmbiguousCase = (angleA, sideA, sideB) => {
     const angleARad = (Math.PI / 180) * angleA;
     const h = sideB * Math.sin(angleARad);
-    if (sideA < h) return "No Triangle";
+    
+    if (sideA < h) {
+      return "No Triangle";
+    }
+    
     if (sideA === h) return "Right Triangle";
     if (sideA > h && sideA < sideB) return "Two Possible Triangles";
     return "One Triangle";
