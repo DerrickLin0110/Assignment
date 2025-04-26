@@ -1,0 +1,85 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 5px;
+    background: linear-gradient(to bottom, rgb(80, 45, 45), rgb(226, 130, 130));
+    text-align: center;
+}
+
+.logo {
+    text-align: left;
+    color: brown;
+    text-shadow: 2px 2px 5px red;
+}
+
+.buttom {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.LoginBtm,
+.Register {
+    background-color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+.hero.section {
+    position: relative;
+}
+
+.hero.section img {
+    background-size: cover;
+    max-width: 100%;
+    height: auto;
+    opacity: 0.7;
+}
+
+.hero.section h2 {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: black;
+    font-size: 50px;
+}
+
+.hero.section p {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: black;
+    font-size: 30px;
+}
+
+.feature.section {
+    padding: 40px;
+}
+
+.movie-list {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.movie img {
+    width: 400px;
+    height: 600px;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2);
+}
+
+.footer.section {
+    background-color: #222;
+    padding: 20px;
+    text-align: center;
+    color: white;
+}
