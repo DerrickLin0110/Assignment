@@ -6,7 +6,11 @@ body {
     text-align: center;
 }
 
-.logo {
+#header.section {
+    padding: 20px;
+}
+
+.logo h1 {
     text-align: left;
     color: brown;
     text-shadow: 2px 2px 5px red;
@@ -31,6 +35,8 @@ body {
 
 .hero.section {
     position: relative;
+    text-align: center;
+    margin-top: 20px;
 }
 
 .hero.section img {
@@ -75,6 +81,12 @@ body {
     object-fit: cover;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2);
+}
+
+.movie p {
+    color: white;
+    font-size: 20px;
+    text-align: center;
 }
 
 .footer.section {

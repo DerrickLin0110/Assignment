@@ -4,14 +4,11 @@ import './style.css';
 function Header() {
   const navigate = useNavigate();
   return (
-
-    <div id ="header section">
+    <div className="header section">
       <h1>StreamFix</h1>
-
       <button className="headerButtons" onClick={() => navigate('/login')}>Login</button>
       <button className="headerButtons" onClick={() => navigate('/register')}>Register</button>
     </div>
-
   );
 }
 
