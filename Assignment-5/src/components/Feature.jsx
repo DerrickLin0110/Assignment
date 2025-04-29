@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-
+import './style.css';
 const API_KEY = '8f6b66151382fcec26ea698d54fb6870';
 
 function Feature() {
