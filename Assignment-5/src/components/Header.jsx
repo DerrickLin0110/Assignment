@@ -1,14 +1,17 @@
-import { useNavigate } from 'react-router-dom';
-import './style.css';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 function Header() {
-  const navigate = useNavigate();
   return (
-    <div className="header section">
-      <h1>StreamFix</h1>
-      <button className="headerButtons" onClick={() => navigate('/login')}>Login</button>
-      <button className="headerButtons" onClick={() => navigate('/register')}>Register</button>
-    </div>
+    <header className="header section">
+      <div className="logo">
+        <h1>StreamFix</h1>
+      </div>
+      <div className="button">
+        <Link to="/login"><button className="LoginBtm">Log in</button></Link>
+        <Link to="/register"><button className="Register">Register</button></Link>
+      </div>
+    </header>
   );
 }
 

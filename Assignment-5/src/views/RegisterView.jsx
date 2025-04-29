@@ -1,22 +1,18 @@
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-
+import React from 'react';
 
 function RegisterView() {
   return (
-    <>
-      <Header />
+    <div className="register section">
       <h2>Register</h2>
       <form>
-        <input type="text" placeholder="First Name" /><br />
-        <input type="text" placeholder="Last Name" /><br />
-        <input type="email" placeholder="Email" /><br />
-        <input type="password" placeholder="Password" /><br />
-        <input type="password" placeholder="Re-enter Password" /><br />
+        <input type="text" placeholder="First Name" required /><br/>
+        <input type="text" placeholder="Last Name" required /><br/>
+        <input type="email" placeholder="Email" required /><br/>
+        <input type="password" placeholder="Password" required /><br/>
+        <input type="password" placeholder="Re-enter Password" required /><br/>
         <button type="submit">Register</button>
       </form>
-      <Footer />
-    </>
+    </div>
   );
 }
 

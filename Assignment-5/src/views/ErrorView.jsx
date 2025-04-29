@@ -1,8 +1,10 @@
+import React from 'react';
+
 function ErrorView() {
   return (
-    <div>
+    <div className="error section">
       <h2>404 - Page Not Found</h2>
-      <p>Oops! Looks like this page doesn't exist.</p>
+      <p>Oops! The page you're looking for doesn't exist.</p>
     </div>
   );
 }

@@ -1,11 +1,18 @@
-import React from 'react'
+import React from 'react';
+import Header from '../components/Header';
+import Hero from '../components/Hero';
+import Feature from '../components/Feature';
+import Footer from '../components/Footer';
 
 function HomeView() {
   return (
-    <div>
-      <h1>Welcome to StreamFix</h1>
-    </div>
-  )
+    <>
+      <Header />
+      <Hero />
+      <Feature />
+      <Footer />
+    </>
+  );
 }
 
-export default HomeView
+export default HomeView;

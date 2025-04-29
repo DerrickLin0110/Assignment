@@ -1,37 +1,36 @@
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
 import axios from 'axios';
+
+const API_KEY = '8f6b66151382fcec26ea698d54fb6870';
 
 function DetailView() {
   const { id } = useParams();
   const [movie, setMovie] = useState(null);
 
   useEffect(() => {
-    async function getMovieDetails() {
-      try {
-        const response = await axios.get(`https://api.themoviedb.org/3/movie/${id}?api_key=8f6b66151382fcec26ea698d54fb6870&append_to_response=videos`);
+    axios.get(`https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}&append_to_response=videos`)
+      .then(response => {
         setMovie(response.data);
-      } catch (error) {
+      })
+      .catch(error => {
         console.error('Error fetching movie details:', error);
-      }
-    }
-
-    getMovieDetails();
+      });
   }, [id]);
 
-  if (!movie) return <p>Loading...</p>;
+  if (!movie) return <div>Loading...</div>;
 
   const trailer = movie.videos.results.find(video => video.type === "Trailer");
 
   return (
-    <div>
+    <div className="detail-view">
       <h2>{movie.title}</h2>
-      <p>{movie.overview}</p>
       <p>Release Date: {movie.release_date}</p>
+      <p>Runtime: {movie.runtime} minutes</p>
       <p>Rating: {movie.vote_average}</p>
-      <p>Runtime: {movie.runtime} min</p>
-      <p>Language: {movie.original_language}</p>
-
+      <p>Overview: {movie.overview}</p>
+      <p>Genres: {movie.genres.map(g => g.name).join(', ')}</p>
+      <p>Budget: ${movie.budget}</p>
       {trailer && (
         <div>
           <h3>Trailer</h3>
@@ -40,8 +39,9 @@ function DetailView() {
             height="315"
             src={`https://www.youtube.com/embed/${trailer.key}`}
             frameBorder="0"
+            allow="autoplay; encrypted-media"
             allowFullScreen
-            title="Movie Trailer"
+            title="Trailer"
           />
         </div>
       )}
