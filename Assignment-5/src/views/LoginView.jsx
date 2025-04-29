@@ -1,14 +1,31 @@
-import React from 'react';
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+import { useNavigate } from "react-router-dom";
+
 
 function LoginView() {
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    navigate('/movies');
+  };
+
   return (
-    <div className="login section">
-      <h2>Login</h2>
-      <form>
-        <input type="email" placeholder="Email" required /><br/>
-        <input type="password" placeholder="Password" required /><br/>
-        <button type="submit">Login</button>
-      </form>
+    <div>
+      <Header />
+      <div id="lForm">
+        <h1 id="lTitle">Login</h1>
+        <form onSubmit={handleSubmit}>
+          <label htmlFor="email" className="inputLabel">Email</label>
+          <input id="email" type="email" className="input" name="email" autoComplete="on" required/>
+          <label htmlFor="password" className="inputLabel">Password</label>
+          <input id="password" type="password" className="input" name="password" required />
+          <input type="submit" value="Login" className="submitBtn"/>
+        </form>
+      </div>
+      <Footer />
     </div>
   );
 }

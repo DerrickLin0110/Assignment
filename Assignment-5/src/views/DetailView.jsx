@@ -1,52 +1,73 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import axios from 'axios';
-
-const API_KEY = '8f6b66151382fcec26ea698d54fb6870';
+import axios from "axios";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 
 function DetailView() {
-  const { id } = useParams();
-  const [movie, setMovie] = useState(null);
+    const param = useParams();
+    const [movie, setMovie] = useState({});
+    const [videos, setVideos] = useState([]);
 
-  useEffect(() => {
-    axios.get(`https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}&append_to_response=videos`)
-      .then(response => {
-        setMovie(response.data);
-      })
-      .catch(error => {
-        console.error('Error fetching movie details:', error);
-      });
-  }, [id]);
+    useEffect(() => {
+        async function getData() {
+            try {
+                const movieData = (await axios.get(`https://api.themoviedb.org/3/movie/${param.id}?api_key=${import.meta.env.VITE_TMDB_KEY}`)).data;
+                setMovie(movieData);
 
-  if (!movie) return <div>Loading...</div>;
+                const videoData = (await axios.get(`https://api.themoviedb.org/3/movie/${param.id}/videos?language=en-US&api_key=${import.meta.env.VITE_TMDB_KEY}`)).data.results;
+                setVideos(videoData);
+            } catch (error) {
+                console.log("Error fetching movie or video data", error);
+            }
+        }
 
-  const trailer = movie.videos.results.find(video => video.type === "Trailer");
+        getData();
+    }, [param.id]);
 
-  return (
-    <div className="detail-view">
-      <h2>{movie.title}</h2>
-      <p>Release Date: {movie.release_date}</p>
-      <p>Runtime: {movie.runtime} minutes</p>
-      <p>Rating: {movie.vote_average}</p>
-      <p>Overview: {movie.overview}</p>
-      <p>Genres: {movie.genres.map(g => g.name).join(', ')}</p>
-      <p>Budget: ${movie.budget}</p>
-      {trailer && (
+    return (
         <div>
-          <h3>Trailer</h3>
-          <iframe
-            width="560"
-            height="315"
-            src={`https://www.youtube.com/embed/${trailer.key}`}
-            frameBorder="0"
-            allow="autoplay; encrypted-media"
-            allowFullScreen
-            title="Trailer"
-          />
+            <h2>Title: {movie.title}</h2>
+            <h3>Tagline: {movie.tagline}</h3>
+            {movie.poster_path && (
+                <img key={movie.id} src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} />
+            )}
+
+            <h2>Trailers</h2>
+            {videos && videos.filter(video => video.type.toLowerCase() === "trailer").map(video => (
+                <iframe 
+                    key={video.key} 
+                    width="420" 
+                    height="315" 
+                    src={`https://www.youtube.com/embed/${video.key}`} 
+                    title={video.name} 
+                    allowFullScreen 
+                />
+            ))}
+
+            <h2>Release Date: {movie.release_date}</h2>
+            <h2>Runtime: {movie.runtime} minutes</h2>
+            <h2>Original Language: {movie.original_language}</h2>
+            
+            <h2>Spoken Languages:</h2>
+            {movie.spoken_languages && movie.spoken_languages.map((lang) => (
+                <li key={lang.name}>{lang.name}</li>
+            ))}
+            
+            <h2>Genres:</h2>
+            {movie.genres && movie.genres.map((genre) => (
+                <li key={genre.name}>{genre.name}</li>
+            ))}
+            
+            <h2>Production Companies:</h2>
+            {movie.production_companies && movie.production_companies.map((company) => (
+                <li key={company.name}>{company.name}</li>
+            ))}
+            
+            <h2>Production Countries:</h2>
+            {movie.production_countries && movie.production_countries.map((country) => (
+                <li key={country.name}>{country.name}</li>
+            ))}
         </div>
-      )}
-    </div>
-  );
+    );
 }
 
 export default DetailView;
