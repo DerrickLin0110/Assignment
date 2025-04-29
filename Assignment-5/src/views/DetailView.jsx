@@ -1,73 +1,94 @@
+import { useEffect, useState } from "react";
 import axios from "axios";
-import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-function DetailView() {
-    const param = useParams();
-    const [movie, setMovie] = useState({});
-    const [videos, setVideos] = useState([]);
+const DetailView = () => {
+    const [movieData, setMovieData] = useState({});
+    const [trailers, setTrailers] = useState([]);
+    const [done, setDone] = useState(false);
+    const params = useParams();
+
+    // Fetch the movie details and trailers
+    const getMovieData = async () => {
+        try {
+            // Fetch movie details
+            const movieDetails = await axios.get(`https://api.themoviedb.org/3/movie/${params.id}?language=en-US&api_key=8f6b66151382fcec26ea698d54fb6870`);
+
+            // Fetch the trailers of the movie
+            const trailerData = await axios.get(`https://api.themoviedb.org/3/movie/${params.id}/videos?language=en-US&api_key=8f6b66151382fcec26ea698d54fb6870`);
+
+            // Set the movie data and trailers
+            setMovieData(movieDetails.data);
+            setTrailers(trailerData.data.results);
+            setDone(true);
+        } catch (error) {
+            console.log("Error fetching movie or video data", error);
+        }
+    };
 
     useEffect(() => {
-        async function getData() {
-            try {
-                const movieData = (await axios.get(`https://api.themoviedb.org/3/movie/${param.id}?api_key=${import.meta.env.VITE_TMDB_KEY}`)).data;
-                setMovie(movieData);
+        getMovieData();
+    }, [params.id]); // Fetch data when the movie ID changes
 
-                const videoData = (await axios.get(`https://api.themoviedb.org/3/movie/${param.id}/videos?language=en-US&api_key=${import.meta.env.VITE_TMDB_KEY}`)).data.results;
-                setVideos(videoData);
-            } catch (error) {
-                console.log("Error fetching movie or video data", error);
-            }
-        }
-
-        getData();
-    }, [param.id]);
+    // Filter trailers to only include "Trailer" type
+    const trailerList = trailers.filter(video => video.type === "Trailer");
 
     return (
-        <div>
-            <h2>Title: {movie.title}</h2>
-            <h3>Tagline: {movie.tagline}</h3>
-            {movie.poster_path && (
-                <img key={movie.id} src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} />
-            )}
+        <div className="detail-view">
+            <h2>{movieData.title}</h2>
+            <div>
+                <h3>Original Title:</h3>
+                <p>{movieData.original_title}</p>
+            </div>
+            <div>
+                <h3>Release Date:</h3>
+                <p>{movieData.release_date}</p>
+            </div>
+            <div>
+                <h3>Overview:</h3>
+                <p>{movieData.overview}</p>
+            </div>
+            <div>
+                <h3>Popularity:</h3>
+                <p>{movieData.popularity}</p>
+            </div>
+            <div>
+                <h3>Vote Average:</h3>
+                <p>{movieData.vote_average}</p>
+            </div>
+            <div>
+                <h3>Vote Count:</h3>
+                <p>{movieData.vote_count}</p>
+            </div>
+            <div>
+                <h3>Spoken Languages:</h3>
+                {movieData.spoken_languages?.map((lang) => (
+                    <p key={lang.name}>{lang.name}</p>
+                ))}
+            </div>
 
-            <h2>Trailers</h2>
-            {videos && videos.filter(video => video.type.toLowerCase() === "trailer").map(video => (
-                <iframe 
-                    key={video.key} 
-                    width="420" 
-                    height="315" 
-                    src={`https://www.youtube.com/embed/${video.key}`} 
-                    title={video.name} 
-                    allowFullScreen 
-                />
-            ))}
-
-            <h2>Release Date: {movie.release_date}</h2>
-            <h2>Runtime: {movie.runtime} minutes</h2>
-            <h2>Original Language: {movie.original_language}</h2>
-            
-            <h2>Spoken Languages:</h2>
-            {movie.spoken_languages && movie.spoken_languages.map((lang) => (
-                <li key={lang.name}>{lang.name}</li>
-            ))}
-            
-            <h2>Genres:</h2>
-            {movie.genres && movie.genres.map((genre) => (
-                <li key={genre.name}>{genre.name}</li>
-            ))}
-            
-            <h2>Production Companies:</h2>
-            {movie.production_companies && movie.production_companies.map((company) => (
-                <li key={company.name}>{company.name}</li>
-            ))}
-            
-            <h2>Production Countries:</h2>
-            {movie.production_countries && movie.production_countries.map((country) => (
-                <li key={country.name}>{country.name}</li>
-            ))}
+            {/* Display Trailers */}
+            <div>
+                <h3>Trailers:</h3>
+                {trailerList.length > 0 ? (
+                    trailerList.map((video) => (
+                        <iframe
+                            key={video.id}
+                            width="640"
+                            height="360"
+                            src={`https://www.youtube.com/embed/${video.key}`}
+                            title={video.name}
+                            allowFullScreen
+                        />
+                    ))
+                ) : (
+                    <p>No trailers available for this movie.</p>
+                )}
+            </div>
         </div>
     );
-}
+};
 
 export default DetailView;
+
+
