@@ -9,16 +9,13 @@ const DetailView = () => {
     const [done, setDone] = useState(false);
     const params = useParams();
 
-    // Fetch the movie details and trailers
     const getMovieData = async () => {
         try {
-            // Fetch movie details
+            
             const movieDetails = await axios.get(`https://api.themoviedb.org/3/movie/${params.id}?language=en-US&api_key=8f6b66151382fcec26ea698d54fb6870`);
 
-            // Fetch the trailers of the movie
             const trailerData = await axios.get(`https://api.themoviedb.org/3/movie/${params.id}/videos?language=en-US&api_key=8f6b66151382fcec26ea698d54fb6870`);
 
-            // Set the movie data and trailers
             setMovieData(movieDetails.data);
             setTrailers(trailerData.data.results);
             setDone(true);
@@ -29,9 +26,8 @@ const DetailView = () => {
 
     useEffect(() => {
         getMovieData();
-    }, [params.id]); // Fetch data when the movie ID changes
+    }, [params.id]);
 
-    // Filter trailers to only include "Trailer" type
     const trailerList = trailers.filter(video => video.type === "Trailer");
 
     return (
@@ -68,7 +64,7 @@ const DetailView = () => {
                 ))}
             </div>
 
-            {/* Display Trailers */}
+            {}
             <div>
                 <h3>Trailers:</h3>
                 {trailerList.length > 0 ? (

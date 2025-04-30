@@ -8,16 +8,16 @@ const GenreView = () => {
     const [page, setPage] = useState(1);
     const [done, setDone] = useState(false);
     const params = useParams();
-    const navigate = useNavigate(); // to navigate programmatically
+    const navigate = useNavigate(); 
 
-    // Fetch movies based on genre
+
     const getMovies = async () => {
         try {
             const response = await axios.get(`https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=${page}&sort_by=popularity.desc&with_genres=${params.genre_id}&api_key=8f6b66151382fcec26ea698d54fb6870`);
             setMovieData(response.data.results);
             setTotalPages(response.data.total_pages);
             if (totalPages >= 500) {
-                setTotalPages(500); // tmdb maxes out at 500 pages
+                setTotalPages(500);
             }
             setDone(true);
         } catch (error) {
@@ -26,8 +26,8 @@ const GenreView = () => {
     };
 
     useEffect(() => {
-        getMovies(); // Call the function to fetch movies when genre changes
-    }, [params.genre_id, page]); // Fetch when genre or page changes
+        getMovies(); 
+    }, [params.genre_id, page]); 
 
     const movePage = (x) => {
         setDone(false);
@@ -50,7 +50,6 @@ const GenreView = () => {
     };
 
     const handleGenreClick = (genreId) => {
-        // Navigate to the new genre, this will trigger useEffect in GenreView to fetch new movies
         navigate(`/genres/${genreId}`);
     };
 

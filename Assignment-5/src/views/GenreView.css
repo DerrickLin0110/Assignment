@@ -1,4 +1,4 @@
-/* MoviesView.css */
+
 
 #container {
   display: flex;
@@ -6,7 +6,7 @@
   height: 100vh;
 }
 
-/* 顶部和底部 */
+
 header, footer {
   background-color: #222;
   color: white;
@@ -15,14 +15,13 @@ header, footer {
   flex-shrink: 0;
 }
 
-/* 中间区域：左右布局 */
+
 .main-content {
   flex: 1;
   display: flex;
   overflow: hidden;
 }
 
-/* 左侧栏：Genres */
 .genres-sidebar {
   width: 200px;
   background-color: #f4f4f4;
@@ -32,7 +31,6 @@ header, footer {
   gap: 0.5rem;
 }
 
-/* Genre 按钮统一尺寸 */
 .genre-button {
   display: block;
   width: 100%;
@@ -50,7 +48,6 @@ header, footer {
   background-color: #bbb;
 }
 
-/* 右侧内容区：Outlet */
 .outlet-content {
   flex: 1;
   padding: 1rem;

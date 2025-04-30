@@ -16,12 +16,11 @@ function LoginView() {
 
     try {
       const res = await axios.post("https://dummyjson.com/auth/login", {
-        username: email, // dummyjson 用 username 字段
+        username: email, 
         password: password
       });
 
       if (res.status === 200) {
-        // 登录成功，跳转
         navigate('/movies');
       }
     } catch (err) {

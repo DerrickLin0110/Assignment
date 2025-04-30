@@ -1,6 +1,3 @@
-/* MoviesView.css */
-
-/* 整体容器垂直布局 */
 #container {
     display: flex;
     flex-direction: column;
@@ -8,8 +5,9 @@
     font-family: Arial, sans-serif;
 }
 
-/* Header 和 Footer 固定高度 */
-header, footer {
+
+header,
+footer {
     background-color: #222;
     color: white;
     padding: 1rem;
@@ -17,14 +15,14 @@ header, footer {
     flex-shrink: 0;
 }
 
-/* 中间主内容区域：Genres + Outlet */
+
 .main-content {
     flex: 1;
     display: flex;
     overflow: hidden;
 }
 
-/* 左侧 Genres 栏 */
+
 .genres-sidebar {
     width: 200px;
     background-color: #f4f4f4;
@@ -35,7 +33,7 @@ header, footer {
     gap: 0.5rem;
 }
 
-/* Genre 按钮统一样式 */
+
 .genre-button {
     display: block;
     width: 100%;
@@ -53,7 +51,7 @@ header, footer {
     background-color: #bbb;
 }
 
-/* 右侧电影展示区（Outlet） */
+
 .outlet-content {
     flex: 1;
     padding: 1rem;
