@@ -1,16 +1,23 @@
+import { ROUTES } from '../constants/path';
 import React from 'react';
-import { Link } from 'react-router-dom';
-import './style.css';
-function Genres({ genres }) {
+import { useNavigate } from 'react-router-dom';
+import './style.css'; 
+
+const Genres = ({ genres }) => {
+  const navigate = useNavigate();
+
   return (
-    <div className="genres section">
-      {genres.map(genre => (
-        <Link key={genre.id} to={`/movies/genre/${genre.id}`}>
-          <button>{genre.genre}</button>
-        </Link>
+    <div>
+      {genres.map((genre) => (
+        <button
+          key={genre.id}
+          className="genre-button"
+          onClick={() => navigate(ROUTES.MOVIE_GENRE(genre.id))}
+        >
+          {genre.genre}
+        </button>
       ))}
     </div>
   );
-}
-
+};
 export default Genres;

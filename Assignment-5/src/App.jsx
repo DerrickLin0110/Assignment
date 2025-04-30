@@ -6,19 +6,20 @@ import MoviesView from './views/MoviesView';
 import GenreView from './views/GenreView';
 import DetailView from './views/DetailView';
 import ErrorView from './views/ErrorView';
+import { ROUTES } from './constants/paths';
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<HomeView />} />
-        <Route path="/login" element={<LoginView />} />
-        <Route path="/register" element={<RegisterView />} />
-        <Route path="/movies" element={<MoviesView />}>
+        <Route path={ROUTES.HOME} element={<HomeView />} />
+        <Route path={ROUTES.LOGIN} element={<LoginView />} />
+        <Route path={ROUTES.REGISTER} element={<RegisterView />} />
+        <Route path={ROUTES.MOVIES} element={<MoviesView />}>
           <Route path="genre/:genre_id" element={<GenreView />} />
           <Route path="details/:id" element={<DetailView />} />
         </Route>
-        <Route path="*" element={<ErrorView />} />
+        <Route path={ROUTES.NOT_FOUND} element={<ErrorView />} />
       </Routes>
     </Router>
   );
