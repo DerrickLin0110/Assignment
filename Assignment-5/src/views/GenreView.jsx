@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import "./GenreView.css";
 
 const GenreView = () => {
     const [movieData, setMovieData] = useState([]);

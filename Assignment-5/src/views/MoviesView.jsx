@@ -3,6 +3,7 @@ import Header from '../components/Header';
 import Genres from '../components/Genres';
 import Footer from '../components/Footer';
 import { Outlet } from 'react-router-dom';
+import "./MoviesView.css";
 
 const genreList = [
   { genre: 'Action', id: 28 },
@@ -21,12 +22,18 @@ const genreList = [
 
 function MoviesView() {
   return (
-    <>
+    <div id="container">
       <Header />
-      <Genres genres={genreList} />
-      <Outlet />
+      <div className="main-content">
+        <div className="genres-sidebar">
+          <Genres genres={genreList} />
+        </div>
+        <div className="outlet-content">
+          <Outlet />
+        </div>
+      </div>
       <Footer />
-    </>
+    </div>
   );
 }
 

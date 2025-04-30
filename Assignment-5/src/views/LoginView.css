@@ -1,0 +1,54 @@
+/* LoginView.css */
+body{
+      text-align: center;
+}
+#lForm {
+    max-width: 400px;
+    margin: 60px auto;
+    padding: 30px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  #lTitle {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 28px;
+    color: #333;
+  }
+  
+  .inputLabel {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: bold;
+    color: #555;
+    text-align: left;
+  }
+  
+  .input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    box-sizing: border-box;
+  }
+  
+  .submitBtn {
+    width: 100%;
+    padding: 12px;
+    background-color: #1976d2;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .submitBtn:hover {
+    background-color: #1565c0;
+  }
+  

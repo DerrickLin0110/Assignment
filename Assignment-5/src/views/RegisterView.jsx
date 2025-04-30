@@ -2,7 +2,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { useNavigate } from "react-router-dom";
 import { useState } from 'react';
-
+import "./RegisterView.css";
 function RegisterView() {
     const navigate = useNavigate();
     const [showError, setShowError] = useState(false);

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import "./DetailView.css";
 
 const DetailView = () => {
     const [movieData, setMovieData] = useState({});
