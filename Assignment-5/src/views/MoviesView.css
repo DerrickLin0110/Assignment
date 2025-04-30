@@ -2,60 +2,60 @@
 
 /* 整体容器垂直布局 */
 #container {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    font-family: Arial, sans-serif;
 }
 
 /* Header 和 Footer 固定高度 */
 header, footer {
-  background-color: #222;
-  color: white;
-  padding: 1rem;
-  text-align: center;
-  flex-shrink: 0;
+    background-color: #222;
+    color: white;
+    padding: 1rem;
+    text-align: center;
+    flex-shrink: 0;
 }
 
 /* 中间主内容区域：Genres + Outlet */
 .main-content {
-  flex: 1;
-  display: flex;
-  overflow: hidden;
+    flex: 1;
+    display: flex;
+    overflow: hidden;
 }
 
 /* 左侧 Genres 栏 */
 .genres-sidebar {
-  width: 200px;
-  background-color: #f4f4f4;
-  padding: 1rem;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+    width: 200px;
+    background-color: #f4f4f4;
+    padding: 1rem;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 
 /* Genre 按钮统一样式 */
 .genre-button {
-  display: block;
-  width: 100%;
-  padding: 0.75rem;
-  background-color: #ddd;
-  text-align: center;
-  border: none;
-  cursor: pointer;
-  font-size: 1rem;
-  border-radius: 4px;
-  transition: background-color 0.2s;
+    display: block;
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #ddd;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    border-radius: 4px;
+    transition: background-color 0.2s;
 }
 
 .genre-button:hover {
-  background-color: #bbb;
+    background-color: #bbb;
 }
 
 /* 右侧电影展示区（Outlet） */
 .outlet-content {
-  flex: 1;
-  padding: 1rem;
-  overflow-y: auto;
+    flex: 1;
+    padding: 1rem;
+    overflow-y: auto;
 }

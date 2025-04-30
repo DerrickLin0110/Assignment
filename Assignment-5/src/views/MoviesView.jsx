@@ -25,12 +25,8 @@ function MoviesView() {
     <div id="container">
       <Header />
       <div className="main-content">
-        <div className="genres-sidebar">
-          <Genres genres={genreList} />
-        </div>
-        <div className="outlet-content">
-          <Outlet />
-        </div>
+        <Genres genres={genreList} />
+        <Outlet />
       </div>
       <Footer />
     </div>

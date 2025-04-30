@@ -6,7 +6,7 @@ import MoviesView from './views/MoviesView';
 import GenreView from './views/GenreView';
 import DetailView from './views/DetailView';
 import ErrorView from './views/ErrorView';
-import { ROUTES } from './constants/paths';
+import { ROUTES } from './constants/path';
 
 function App() {
   return (
