@@ -28,7 +28,7 @@ function RegisterView() {
     };
 
     try {
-      const res = await axios.post("https://dummyjson.com/users/add", user); // dummyjson注册模拟
+      const res = await axios.post("https://dummyjson.com/users/add", user); 
       if (res.status === 200 || res.status === 201) {
         navigate("/movies");
       }
