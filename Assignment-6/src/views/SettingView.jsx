@@ -1,4 +1,4 @@
-import "./SettingsView.css";
+import "./SettingView.css";
 import { useStoreContext } from "../Context";
 import { useNavigate } from "react-router-dom"
 

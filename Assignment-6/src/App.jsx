@@ -9,7 +9,7 @@ import DetailView from "./views/DetailView";
 import MoviesView from "./views/MoviesView";
 import GenreView from "./views/GenreView";
 import CartView from "./views/CartView";
-import SettingsView from "./views/SettingsView";
+import SettingsView from "./views/SettingView";
 import SearchView from "./views/SearchView";
 import ProtectedRoutes from './views/ProtectedRoutes';
 
