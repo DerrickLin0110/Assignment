@@ -18,12 +18,14 @@ const genreList = [
 
 const MoviesView = () => {
   return (
-    <div>
-      <Header />
-      <div className="movies-layout">
-        <Genres genres={genreList} />
-        <Outlet />
-      </div>
+ <div className="app-container">
+  <Header />
+  <div className="genre-container">
+    <Genres genres={genreList} />   {/* 左侧：竖直的按钮列表 */}
+    <div className="genre-movies">
+      <Outlet />                    {/* 右侧：电影内容 */}
+    </div>
+  </div>
       <Footer />
     </div>
   );

@@ -1,14 +1,21 @@
-import { useNavigate } from 'react-router-dom';
+// Genres.jsx
+import { Link, useParams } from "react-router-dom";
+
 
 const Genres = ({ genres }) => {
-  const navigate = useNavigate();
+  const { genre_id } = useParams();
 
   return (
-    <div className="genreList">
+    <div className="genre-list">
+      <h3>Genres</h3>
       {genres.map(({ genre, id }) => (
-        <button key={id} className="genreButton" onClick={() => navigate(`/movies/genre/${id}`)}>
+        <Link
+          key={id}
+          to={`/movies/genres/${id}`}
+          className={`genre-button ${parseInt(genre_id) === id ? 'active' : ''}`}
+        >
           {genre}
-        </button>
+        </Link>
       ))}
     </div>
   );

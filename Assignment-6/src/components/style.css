@@ -179,3 +179,22 @@ body {
 .Register:hover {
   background-color: #e63b00;
 }
+
+.genre-button {
+  display: block;
+  padding: 0.5rem 1rem;
+  margin: 0.25rem 0;
+  background-color: #2a2a2a;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.genre-button:hover {
+  background-color: #444;
+}
+
+.genre-button.active {
+  background-color: #646cff;
+}
