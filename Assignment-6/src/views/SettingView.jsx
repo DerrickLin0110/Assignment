@@ -27,13 +27,13 @@ function SettingsView() {
         <div id="settingsPage">
             <button className="button" onClick={() => navigate(-1)}>Back</button>
             <form onSubmit={handleSubmit}>
-                <h1>Settings</h1>
-                <h1>First Name:</h1>
+                <h2>Settings</h2>
+                <h2>First Name:</h2>
                 <input id="inputFName" className="input" type="text" defaultValue={fName}></input>
-                <h1>Last Name:</h1>
+                <h2>Last Name:</h2>
                 <input id="inputLName" className="input" type="text" defaultValue={lName}></input>
-                <h1>{`Email: ${email}`}</h1>
-                <h1>Favourite Genres:</h1>
+                <h2>{`Email: ${email}`}</h2>
+                <h2>Favourite Genres:</h2>
                 {genreList && genreList.map(genre => (
                     <div key={genre.id}>
                         <input id={genre.id} type="checkbox" defaultChecked={fGenre.includes(genre.id)}></input>
