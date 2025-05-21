@@ -25,14 +25,14 @@ function SettingsView() {
 
     return (
         <div id="settingsPage">
-            <button className="button" onClick={() => navigate(-1)}>Back</button>
+            <button className="backbutton" onClick={() => navigate(-1)}>Back</button>
             <form onSubmit={handleSubmit}>
                 <h2>Settings</h2>
-                <h2>First Name:</h2>
+                <h3>First Name:</h3>
                 <input id="inputFName" className="input" type="text" defaultValue={fName}></input>
-                <h2>Last Name:</h2>
+                <h3>Last Name:</h3>
                 <input id="inputLName" className="input" type="text" defaultValue={lName}></input>
-                <h2>{`Email: ${email}`}</h2>
+                <h3>{`Email: ${email}`}</h3>
                 <h2>Favourite Genres:</h2>
                 {genreList && genreList.map(genre => (
                     <div key={genre.id}>
@@ -40,7 +40,7 @@ function SettingsView() {
                         <label className="genreLabels" htmlFor={genre.id}>{genre.genre}</label>
                     </div>
                 ))}
-                <input className="button" type="submit" value="Save Account Details" />
+                <input className="backbutton" type="submit" value="Save Account Details" />
             </form>
         </div>
 

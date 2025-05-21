@@ -8,7 +8,7 @@ function CartView() {
 
     return (
         <div id="cartPage">
-            <button className="button" onClick={() => navigate(-1)}>Back</button>
+            <button className="backbutton" onClick={() => navigate(-1)}>Back</button>
             <h1 id="cTitle">Cart</h1>
             <div className="cartContainer">
                 {cart.entrySeq().map(([key, value]) => {
