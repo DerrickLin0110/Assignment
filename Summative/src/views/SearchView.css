@@ -1,0 +1,94 @@
+.movieContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 2rem;
+}
+
+.movieBox {
+  width: 220px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.movieBox:hover {
+  transform: scale(1.03);
+}
+
+.movieCard {
+  cursor: pointer;
+  text-align: center;
+  padding: 1rem;
+}
+
+.movieTitle {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.moviePoster {
+  width: 100%;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.buyButtons {
+  margin: 0.8rem 0 1rem;
+  padding: 0.5rem 1.2rem;
+  background-color: #0077cc;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.buyButtons:hover {
+  background-color: #005fa3;
+}
+
+.buyButtons:active {
+  background-color: #004b82;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem;
+  gap: 1rem;
+}
+
+.pageButtons {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  background-color: #222;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.pageButtons:hover:enabled {
+  background-color: #444;
+}
+
+.pageButtons:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.movieText {
+  font-size: 1rem;
+  color: #333;
+}

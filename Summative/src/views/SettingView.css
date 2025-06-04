@@ -1,0 +1,58 @@
+#settingsPage {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+}
+
+h2 {
+  font-size: 2rem;
+  margin: 1rem 0 0.5rem;
+  color: #333;
+}
+
+.input {
+  width: 100%;
+  padding: 0.6rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.genreLabels {
+  margin-left: 0.5rem;
+  font-size: 1rem;
+  color: #444;
+}
+
+input[type="checkbox"] {
+  transform: scale(1.2);
+  margin-right: 0.4rem;
+}
+
+.button {
+  display: inline-block;
+  padding: 0.6rem 1.2rem;
+  margin-top: 1rem;
+  font-size: 1rem;
+  font-weight: bold;
+  color: white;
+
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.button:hover {
+  background-color: #005fa3;
+}
+
+.button:active {
+  background-color: #004b82;
+}

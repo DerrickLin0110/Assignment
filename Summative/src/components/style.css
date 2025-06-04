@@ -1,0 +1,231 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 5px;
+    background: linear-gradient(to bottom, rgb(80, 45, 45), rgb(226, 130, 130));
+    text-align: center;
+}
+
+#header.section {
+    padding: 20px;
+}
+
+.logo h1 {
+    text-align: left;
+    color: brown;
+    text-shadow: 2px 2px 5px red;
+}
+
+.buttom {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.LoginBtm,
+.Register {
+    color: black;
+    background-color: rgb(233, 229, 23);
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+.hero.section {
+    position: relative;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.hero.section img {
+    background-size: cover;
+    max-width: 100%;
+    height: auto;
+    opacity: 0.7;
+}
+
+.hero.section h2 {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: black;
+    font-size: 50px;
+}
+
+.hero.section p {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: black;
+    font-size: 30px;
+}
+
+.feature.section {
+    padding: 40px;
+}
+
+.movie-list {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.movie img {
+    width: 300px;
+    height: 600px;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2);
+}
+
+.movie p {
+    color: white;
+    font-size: 20px;
+    text-align: center;
+}
+
+.footer.section {
+    background-color: #222;
+    padding: 20px;
+    text-align: center;
+    color: white;
+}
+/* style.css */
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 40px;
+  background: linear-gradient(90deg, #2c3e50, #34495e); /* 改成 genre-list 的配色 */
+  color: #ecf0f1; /* 浅灰白，与 genre-list 一致 */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+  border-bottom: 1px solid #1f2d3a;
+}
+
+.header h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 0;
+  color: #f39c12; /* 和 genre-button.active 一致的亮黄色 */
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.header h1:hover {
+  color: #ffa502; /* hover 时更亮的黄橙色 */
+}
+
+.headerButtons {
+  background-color: #f39c12;
+  color: #ffffff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.headerButtons:hover {
+  background-color: #e67e22;
+}
+
+#searchBar {
+  padding: 7px 10px;
+  border-radius: 4px;
+  border: none;
+  font-size: 1rem;
+  background-color: #ecf0f1;
+  color: #2c3e50;
+  transition: box-shadow 0.3s ease;
+}
+
+#searchBar:focus {
+  box-shadow: 0 0 5px 2px #f39c12;
+}
+
+.button {
+  display: flex;
+  gap: 10px;
+}
+
+.LoginBtm,
+.Register {
+  padding: 8px 18px;
+  border: none;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  color: white;
+  background-color: #f39c12;
+  transition: background-color 0.3s ease;
+}
+
+.LoginBtm:hover,
+.Register:hover {
+  background-color: #e67e22;
+}
+
+.genre-list {
+  position: fixed;
+  top: 40px;
+  left: 0;
+  width: 150px;
+  padding: 20px 15px;
+  background: linear-gradient(180deg, #2c3e50, #34495e);
+  border-right: 1px solid #1f2d3a;
+  height: calc(100vh - 100px);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  z-index: 1000;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.genre-list h3 {
+  color: #ecf0f1;
+  font-size: 1.4rem;
+  margin-bottom: 20px;
+  text-align: center;
+  font-weight: 600;
+  border-bottom: 1px solid #7f8c8d;
+  padding-bottom: 10px;
+}
+
+/* 美化按钮 */
+.genre-button {
+  display: block;
+  padding: 10px 15px;
+  margin: 6px 0;
+  background-color: #3b4b5a;
+  color: #ecf0f1;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  font-size: 1rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.genre-button:hover {
+  background-color: #5d6d7e;
+  transform: translateX(5px);
+  color: #ffffff;
+}
+
+/* 当前选中的 genre */
+.genre-button.active {
+  background-color: #f39c12;
+  color: #ffffff;
+  font-weight: 600;
+  transform: scale(1.05);
+}
