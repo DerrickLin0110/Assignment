@@ -1,30 +1,78 @@
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { useNavigate } from "react-router-dom";
-import { useState } from 'react';
-import axios from 'axios';
+import { useState } from "react";
+import {
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  GoogleAuthProvider,
+  fetchSignInMethodsForEmail,
+} from "firebase/auth";
+import { auth } from "../firebase";
+import { useStoreContext } from "../Context"; // You missed this in the full version
 import "./LoginView.css";
 
 function LoginView() {
+  const { setUser } = useStoreContext(); // ADD THIS
   const navigate = useNavigate();
+  const [form, setForm] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
+  const [googleProcessing, setGoogleProcessing] = useState(false);
+
+  const handleChange = (e) =>
+    setForm({ ...form, [e.target.name]: e.target.value });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const email = e.target.email.value;
-    const password = e.target.password.value;
+    const email = form.email.trim().toLowerCase();
+    const password = form.password;
+
+    console.log("Trying to login with:", email);
 
     try {
-      const res = await axios.post("https://dummyjson.com/auth/login", {
-        username: email, 
-        password: password
-      });
+      const methods = await fetchSignInMethodsForEmail(auth, email);
+      console.log("Available sign-in methods:", methods);
 
-      if (res.status === 200) { 
-        navigate('/movies');
+      if (!methods || methods.length === 0) {
+        setError("This email is not registered. Please register first.");
+        return;
       }
+
+      if (!methods.includes("password")) {
+        setError(
+          "This email is registered with Google. Please use Google sign-in."
+        );
+        return;
+      }
+
+      const result = await signInWithEmailAndPassword(auth, email, password);
+      setUser(result.user); // Set user in global context
+      navigate("/movies");
     } catch (err) {
-      setError("Login failed: Invalid credentials");
+      console.error("Login Error:", err);
+      setError("Login failed: Invalid credentials or an error occurred.");
+    }
+  };
+
+  const googleSignIn = async () => {
+    setGoogleProcessing(true);
+    const provider = new GoogleAuthProvider();
+
+    try {
+      const result = await signInWithPopup(auth, provider);
+      setUser(result.user); // Set user in global context
+      navigate("/movies");
+    } catch (error) {
+      console.error("Google sign-in error:", error.message);
+      if (error.code === "auth/account-exists-with-different-credential") {
+        setError(
+          "This email is already registered with a different sign-in method."
+        );
+      } else {
+        setError(`Google sign-in error: ${error.message}`);
+      }
+    } finally {
+      setGoogleProcessing(false);
     }
   };
 
@@ -34,15 +82,42 @@ function LoginView() {
       <div id="lForm">
         <h1 id="lTitle">Login</h1>
         <form onSubmit={handleSubmit}>
-          <label htmlFor="email" className="inputLabel">Username</label>
-          <input id="email" type="text" className="input" name="email" required />
-          
+          <label htmlFor="email" className="inputLabel">Email</label>
+          <input
+            id="email"
+            type="email"
+            className="input"
+            name="email"
+            value={form.email}
+            onChange={handleChange}
+            required
+          />
+
           <label htmlFor="password" className="inputLabel">Password</label>
-          <input id="password" type="password" className="input" name="password" required />
-          
-          <input type="submit" value="Login" className="submitBtn"/>
+          <input
+            id="password"
+            type="password"
+            className="input"
+            name="password"
+            value={form.password}
+            onChange={handleChange}
+            required
+          />
+
+          <input type="submit" value="Login" className="submitBtn" />
         </form>
-        {error && <p style={{ color: "red" }}>{error}</p>}
+
+        <button
+          onClick={googleSignIn}
+          className="googleSigninBtn"
+          disabled={googleProcessing}
+          style={{ marginTop: "1rem" }}
+        >
+          <img src="googleIcon.png" className="googleIcon" alt="Google Icon" />
+          {googleProcessing ? "Processing..." : "Sign in with Google"}
+        </button>
+
+        {error && <p style={{ color: "red", marginTop: "1rem" }}>{error}</p>}
       </div>
       <Footer />
     </div>
