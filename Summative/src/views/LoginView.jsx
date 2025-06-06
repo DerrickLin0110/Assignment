@@ -1,127 +1,61 @@
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-import {
-  signInWithEmailAndPassword,
-  signInWithPopup,
-  GoogleAuthProvider,
-  fetchSignInMethodsForEmail,
-} from "firebase/auth";
-import { auth } from "../firebase";
-import { useStoreContext } from "../Context"; // You missed this in the full version
+import { useStoreContext } from "../Context";
 import "./LoginView.css";
-
+import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import { auth, } from '../firebase'
+// 
 function LoginView() {
-  const { setUser } = useStoreContext(); // ADD THIS
   const navigate = useNavigate();
-  const [form, setForm] = useState({ email: "", password: "" });
-  const [error, setError] = useState("");
-  const [googleProcessing, setGoogleProcessing] = useState(false);
+  const { setUser, setEmail } = useStoreContext(); // Add setEmail
+  const [form, setForm] = useState({ email: '', password: '' });
 
-  const handleChange = (e) =>
-    setForm({ ...form, [e.target.name]: e.target.value });
+  const handleChange = e => setForm({ ...form, [e.target.name]: e.target.value });
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    const email = form.email.trim().toLowerCase();
-    const password = form.password;
-
-    console.log("Trying to login with:", email);
-
-    try {
-      const methods = await fetchSignInMethodsForEmail(auth, email);
-      console.log("Available sign-in methods:", methods);
-
-      if (!methods || methods.length === 0) {
-        setError("This email is not registered. Please register first.");
-        return;
+      e.preventDefault();
+      try {
+          const result = await signInWithEmailAndPassword(auth, form.email, form.password);
+          setUser(result.user);
+          setEmail(result.user.email); // Update email in context
+          navigate("/movies"); // Redirect to MoviesView
+      } catch (error) {
+          console.error("Login error:", error);
+          alert("Login error");
       }
-
-      if (!methods.includes("password")) {
-        setError(
-          "This email is registered with Google. Please use Google sign-in."
-        );
-        return;
-      }
-
-      const result = await signInWithEmailAndPassword(auth, email, password);
-      setUser(result.user); // Set user in global context
-      navigate("/movies");
-    } catch (err) {
-      console.error("Login Error:", err);
-      setError("Login failed: Invalid credentials or an error occurred.");
-    }
   };
 
   const googleSignIn = async () => {
-    setGoogleProcessing(true);
-    const provider = new GoogleAuthProvider();
-
-    try {
-      const result = await signInWithPopup(auth, provider);
-      setUser(result.user); // Set user in global context
-      navigate("/movies");
-    } catch (error) {
-      console.error("Google sign-in error:", error.message);
-      if (error.code === "auth/account-exists-with-different-credential") {
-        setError(
-          "This email is already registered with a different sign-in method."
-        );
-      } else {
-        setError(`Google sign-in error: ${error.message}`);
+      const provider = new GoogleAuthProvider();
+      try {
+          const result = await signInWithPopup(auth, provider);
+          setUser(result.user);
+          setEmail(result.user.email); // Update email in context
+          navigate("/movies"); // Redirect to MoviesView
+      } catch (error) {
+          console.error("Google sign-in error:", error);
+          alert("Google sign-in error");
       }
-    } finally {
-      setGoogleProcessing(false);
-    }
   };
 
   return (
-    <div>
-      <Header />
-      <div id="lForm">
-        <h1 id="lTitle">Login</h1>
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="email" className="inputLabel">Email</label>
-          <input
-            id="email"
-            type="email"
-            className="input"
-            name="email"
-            value={form.email}
-            onChange={handleChange}
-            required
-          />
-
-          <label htmlFor="password" className="inputLabel">Password</label>
-          <input
-            id="password"
-            type="password"
-            className="input"
-            name="password"
-            value={form.password}
-            onChange={handleChange}
-            required
-          />
-
-          <input type="submit" value="Login" className="submitBtn" />
-        </form>
-
-        <button
-          onClick={googleSignIn}
-          className="googleSigninBtn"
-          disabled={googleProcessing}
-          style={{ marginTop: "1rem" }}
-        >
-          <img src="googleIcon.png" className="googleIcon" alt="Google Icon" />
-          {googleProcessing ? "Processing..." : "Sign in with Google"}
-        </button>
-
-        {error && <p style={{ color: "red", marginTop: "1rem" }}>{error}</p>}
+      <div>
+          <Header />
+          <div id="lForm">
+              <h1 id="lTitle">Login</h1>
+              <form onSubmit={handleSubmit}>
+                  <input id="email" type="email" className="input" name="email" placeholder="Email" autoComplete="on" onChange={handleChange} required />
+                  <input id="password" type="password" className="input" name="password" placeholder="Password" onChange={handleChange} required />
+                  <input id="loginButton" type="submit" value="Login" />
+              </form>
+              <button onClick={googleSignIn} className="googleSigninBtn"><img src="googleIcon.png" className="googleIcon"></img> Google Sign In</button>
+          </div>
+          <Footer />
       </div>
-      <Footer />
-    </div>
   );
 }
 
 export default LoginView;
+   
