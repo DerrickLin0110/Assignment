@@ -1,24 +1,17 @@
-// Genres.jsx
-import { Link, useParams } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import "./style.css"
 
-
-const Genres = ({ genres }) => {
-  const { genre_id } = useParams();
-
-  return (
-    <div className="genre-list">
-      <h3>Genres</h3>
-      {genres.map(({ genre, id }) => (
-        <Link
-          key={id}
-          to={`/movies/genres/${id}`}
-          className={`genre-button ${parseInt(genre_id) === id ? 'active' : ''}`}
-        >
-          {genre}
-        </Link>
-      ))}
-    </div>
-  );
-};
+function Genres(props) {
+    return (
+        <div>
+            <h1 id="gTitle">Genres</h1>
+            {props.genre.filter(genre => genre.isChosen).map(genre => (
+                <div key={genre.id} className="moviesNav">
+                    <NavLink to={`genres/${genre.id}`} className="genreButtons">{genre.name}</NavLink>
+                </div>
+            ))}
+        </div>
+    )
+}
 
 export default Genres;

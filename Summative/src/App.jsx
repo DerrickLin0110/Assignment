@@ -26,11 +26,11 @@ function App() {
             <Route path="/movies" element={<MoviesView />} >
               <Route path="genres/:genre_id" element={<GenreView />} />
               <Route path="details/:id" element={<DetailView />} />
-              <Route path="search" element={<SearchView />} />
+              <Route path="search/:search_id" element={<SearchView />} />
             </Route>
+            <Route path="settings" element={<SettingsView />} />
+            <Route path="cart" element={<CartView />} />
           </Route>
-          <Route path="settings" element={<SettingsView />} />
-          <Route path="cart" element={<CartView />} />
           <Route path="*" element={<ErrorView />} />
         </Routes>
       </BrowserRouter>

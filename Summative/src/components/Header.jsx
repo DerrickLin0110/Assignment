@@ -1,61 +1,56 @@
-import "./style.css";
-import { useCallback, useMemo } from "react";
-import { useNavigate } from "react-router-dom";
+import "./style.css"
+import { useState, useEffect } from 'react';
+import { useNavigate } from "react-router-dom"
 import { useStoreContext } from "../Context";
+import { signOut } from 'firebase/auth';
+import { auth } from '../firebase';
 
 function Header() {
   const navigate = useNavigate();
-  const { fName, setSearch, email, setEmail } = useStoreContext();
+  const { user, setUser } = useStoreContext();
+  const [name, setName] = useState([]);
 
-  function debounce(func, delay) {
+  useEffect(() => {
+    if (user && user.displayName) {
+      setName(user.displayName.split(' '));
+    }
+  }, [user]);
+
+  const debounce = (func, delay) => {
     let timer;
     return function (...args) {
       clearTimeout(timer);
       timer = setTimeout(() => {
         func(...args);
       }, delay);
-    };
+    }
   }
 
-  const sendRequest = useCallback((value) => {
-    setSearch(value);
-    navigate("/movies/search");
-  }, [navigate, setSearch]);
-
-  const debouncedSendRequest = useMemo(() => {
-    return debounce(sendRequest, 500);
-  }, [sendRequest]);
-
-  const onChange = (e) => {
-    debouncedSendRequest(e.target.value);
-  };
+  const onSearch = debounce((e) => {
+    if (e.target.value) {
+      navigate(`/movies/search/${e.target.value}`);
+    }
+  }, 500);
 
   return (
-    <header className="header section">
-      <div className="logo">
-        <h1>StreamFix</h1>
-      </div>
-
-      {email ? (
-        <div className="user-controls">
-          <h2 className="welcome">Hi {fName}!</h2>
+    <div id="header">
+      {user ?
+        <div>
+          <button className="title" onClick={() => navigate("/movies/genres/28")}>StreamFix</button><br />
+          <h1 className="nameCard">{`Hi ${name[0]}!`}</h1>
           <button className="headerButtons" onClick={() => navigate("/cart")}>Cart</button>
           <button className="headerButtons" onClick={() => navigate("/settings")}>Settings</button>
-          <button className="headerButtons" onClick={() => { setEmail(null); navigate("/"); }}>Logout</button>
-          <input
-            type="text"
-            id="searchBar"
-            placeholder="Search Movies Here"
-            onChange={onChange}
-          />
+          <button className="headerButtons" onClick={() => { setUser(null); signOut(auth); navigate("/"); }}>Logout</button><br />
+          <input type="text" id="searchBar" placeholder="Search Movies Here" autoComplete="off" onInput={(e) => onSearch(e)} />
         </div>
-      ) : (
-        <div className="button">
-          <button className="LoginBtm" onClick={() => navigate("/login")}>Log in</button>
-          <button className="Register" onClick={() => navigate("/register")}>Register</button>
+        :
+        <div>
+          <button className="title" onClick={() => navigate("/")}>StreamFix</button><br />
+          <button className="headerButtons" onClick={() => navigate("/login")}>Login</button>
+          <button className="headerButtons" onClick={() => navigate("/register")}>Register</button>
         </div>
-      )}
-    </header>
+      }
+    </div>
   );
 }
 

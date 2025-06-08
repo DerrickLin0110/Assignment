@@ -4,37 +4,28 @@ import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { useStoreContext } from "../Context";
 import "./RegisterView.css";
-import {
-    createUserWithEmailAndPassword,
-    signInWithPopup,
-    GoogleAuthProvider,
-    updateProfile,
-    fetchSignInMethodsForEmail
-} from 'firebase/auth';
-import { auth } from '../firebase';
+import { createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, updateProfile } from 'firebase/auth';
+import { auth, firestore } from '../firebase';
+import { doc, setDoc } from "firebase/firestore";
 
 function RegisterView() {
-    const { genreList, setFGenre, setFName, setLName, setEmail, setUser } = useStoreContext();
+    const { setUser, setGenres, genres, purHis } = useStoreContext();
     const [checkedGenres, setCheckedGenres] = useState([]);
     const navigate = useNavigate();
-    const [form, setForm] = useState({
-        firstName: '',
-        lastName: '',
-        email: '',
-        password: '',
-        password2: ''
-    });
-    const [googleProcessing, setGoogleProcessing] = useState(false);
+    const [form, setForm] = useState({ firstName: '', lastName: '', email: '', password: '', password2: '' });
 
     const handleChange = e => setForm({ ...form, [e.target.name]: e.target.value });
 
     const handleChecked = (e) => {
-        const genreId = e.target.id;
-        if (e.target.checked) {
-            setCheckedGenres(prev => [...prev, genreId]);
-        } else {
-            setCheckedGenres(prev => prev.filter(id => id !== genreId));
-        }
+        const updatedGenres = genres.map(genre =>
+            genre.id === e.target.id ? { ...genre, isChosen: e.target.checked } : genre
+        );
+
+        setCheckedGenres(prev =>
+            e.target.checked ? [...prev, e.target.id] : prev.filter(gid => gid !== e.target.id)
+        );
+
+        setGenres(updatedGenres);
     };
 
     const handleSubmit = async (e) => {
@@ -51,30 +42,31 @@ function RegisterView() {
         }
 
         try {
-            // Check if email is already registered
-            const methods = await fetchSignInMethodsForEmail(auth, form.email);
-            if (methods && methods.length > 0) {
-                alert("This email is already registered.");
-                return;
-            }
-
             const result = await createUserWithEmailAndPassword(auth, form.email, form.password);
-            setUser(result.user);
-
-            // Update user profile with name
-            await updateProfile(result.user, {
+            const newUser = result.user;
+            setUser(newUser);
+            
+            await updateProfile(auth.currentUser, {
                 displayName: `${form.firstName} ${form.lastName}`
-            });
+            })
+            await auth.currentUser.reload();
 
-            // Set context values
-            setFName(form.firstName);
-            setLName(form.lastName);
-            setEmail(form.email);
-            setFGenre(checkedGenres);
+            const docRef = doc(firestore, "users", newUser.uid);
+            const data = { genrePreferences: checkedGenres, purchaseHistory: purHis.toJS() };
+            await setDoc(docRef, data);
 
             navigate(`/movies/genres/${checkedGenres[0]}`);
         } catch (error) {
-            alert(`Error creating user: ${error.message}`);
+            switch (error.code) {
+                case 'auth/email-already-in-use':
+                    alert('Email already in use.');
+                    break;
+                case 'auth/weak-password':
+                    alert('Password should be at least 6 characters.');
+                    break;
+                default:
+                    alert('Registration error.');
+            }
         }
     };
 
@@ -84,40 +76,19 @@ function RegisterView() {
             return;
         }
 
-        setGoogleProcessing(true);
-        const provider = new GoogleAuthProvider();
-
         try {
+            const provider = new GoogleAuthProvider();
             const result = await signInWithPopup(auth, provider);
-            const user = result.user;
+            const newUser = result.user;
+            setUser(newUser);
 
-            // Check if user is new
-            if (result._tokenResponse.isNewUser) {
-                // Set context values
-                const nameParts = user.displayName?.split(" ") || ["", ""];
-                const firstName = nameParts[0];
-                const lastName = nameParts.slice(1).join(" ") || "User";
+            const docRef = doc(firestore, "users", newUser.uid);
+            const data = { genrePreferences: checkedGenres, purchaseHistory: purHis.toJS() };
+            await setDoc(docRef, data);
 
-                setFName(firstName);
-                setLName(lastName);
-                setEmail(user.email);
-                setFGenre(checkedGenres);
-                setUser(user);
-
-                navigate(`/movies/genres/${checkedGenres[0]}`);
-            } else {
-                // Existing user
-                alert("You already have an account. Please sign in instead.");
-                navigate('/login');
-            }
+            navigate(`/movies/genres/${checkedGenres[0]}`);
         } catch (error) {
-            if (error.code === 'auth/account-exists-with-different-credential') {
-                alert("This email is already registered with another method.");
-            } else {
-                alert(`Google sign-in error: ${error.message}`);
-            }
-        } finally {
-            setGoogleProcessing(false);
+            alert("Google sign-in error");
         }
     };
 
@@ -127,89 +98,21 @@ function RegisterView() {
             <div id="rForm" >
                 <h1 id="rTitle">Register</h1>
                 <form onSubmit={handleSubmit}>
-                    <label htmlFor="firstName" className="inputLabel">First Name</label>
-
-                    <input
-                        id="firstName"
-                        type="text"
-                        className="input"
-                        name="firstName"
-                        value={form.firstName}
-                        onChange={handleChange}
-                        required
-                    />
-                    <label htmlFor="lasttName" className="inputLabel">Last Name</label>
-
-                    <input
-                        id="lastName"
-                        type="text"
-                        className="input"
-                        name="lastName"
-                        value={form.lastName}
-                        onChange={handleChange}
-                        required
-                    />
-                              <label htmlFor="email" className="inputLabel">Email</label>
-
-                    <input
-                        id="email"
-                        type="email"
-                        className="input"
-                        name="email"
-                        autoComplete="on"
-                        value={form.email}
-                        onChange={handleChange}
-                        required
-                    />
-                              <label htmlFor="password" className="inputLabel">Password</label>
-
-                    <input
-                        id="password"
-                        type="password"
-                        className="input"
-                        name="password"
-                        value={form.password}
-                        onChange={handleChange}
-                        required
-                    />
-                              <label htmlFor="reenterpassword" className="inputLabel">Re-Enter Password</label>
-
-                    <input
-                        id="password2"
-                        type="password"
-                        className="input"
-                        name="password2"
-                        value={form.password2}
-                        onChange={handleChange}
-                        required
-                    />
-                    <p id="genresTitle">Choose at least 5 of genres you want to see</p>
-                    {genreList && genreList.map(genre => (
-                        <div key={genre.id} className="checkboxGroup">
-                            <input
-                                id={String(genre.id)}
-                                type="checkbox"
-                                checked={checkedGenres.includes(String(genre.id))}
-                                onChange={handleChecked}
-                            />
-                            <label htmlFor={String(genre.id)} className="inputLabel">{genre.genre}</label>
+                    <input id="firstName" type="text" className="input" name="firstName" placeholder="First Name" onChange={handleChange} required />
+                    <input id="lastName" type="text" className="input" name="lastName" placeholder="Last Name" onChange={handleChange} required />
+                    <input id="email" type="email" className="input" name="email" autoComplete="on" placeholder="Email" onChange={handleChange} required />
+                    <input id="password" type="password" className="input" name="password" placeholder="Password" onChange={handleChange} required />
+                    <input id="password2" type="password" className="input" name="password2" placeholder="Re-enter Password" onChange={handleChange} required />
+                    <p id="genresTitle">Choose at least 5 genres you want to see</p>
+                    {genres && genres.map(genre => (
+                        <div key={genre.id}>
+                            <input id={genre.id} type="checkbox" onChange={handleChecked}></input>
+                            <label htmlFor={genre.id} className="inputLabel">{genre.name}</label>
                         </div>
                     ))}
-                    <input
-                        id="submitButton"
-                        type="submit"
-                        value="Register"
-                        disabled={googleProcessing}
-                    />
+                    <input id="submitButton" type="submit" value="Register" />
                 </form>
-                <button
-                    onClick={googleSignIn}
-                    className="googleSigninBtn"
-                    disabled={googleProcessing}
-                >
-                    <img src="googleIcon.png" className="googleIcon" alt="Google Icon"></img>
-                    {googleProcessing ? "Processing..." : "Register with Google"}
-                </button>
+                <button onClick={googleSignIn} className="googleSigninBtn"><img src="googleIcon.png" className="googleIcon" alt="Google Icon"></img> Google Sign In</button>
             </div>
             <Footer />
         </div>

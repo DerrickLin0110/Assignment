@@ -1,67 +1,81 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import { Map } from "immutable";
-import { auth } from "../firebase";
 import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../firebase";
+import { doc, getDoc } from "firebase/firestore";
+import { firestore } from '../firebase';
 
 const StoreContext = createContext();
 
 export const StoreProvider = ({ children }) => {
+    const [loading, setLoading] = useState(true);
     const [user, setUser] = useState(null);
-    const [fName, setFName] = useState("");
-    const [lName, setLName] = useState("");
-    const [email, setEmail] = useState("");
-    const [search, setSearch] = useState("");
     const [cart, setCart] = useState(Map());
-    const [fGenre, setFGenre] = useState([]);
-    const [purchases, setPurchases] = useState([]);
+    const [purHis, setPurHis] = useState(Map());
+    const [genres, setGenres] = useState([
+        { "name": "Action", "id": "28", "isChosen": false },
+        { "name": "Adventure", "id": "12", "isChosen": false },
+        { "name": "Animation", "id": "16", "isChosen": false },
+        { "name": "Crime", "id": "80", "isChosen": false },
+        { "name": "Family", "id": "10751", "isChosen": false },
+        { "name": "Fantasy", "id": "14", "isChosen": false },
+        { "name": "History", "id": "36", "isChosen": false },
+        { "name": "Horror", "id": "27", "isChosen": false },
+        { "name": "Mystery", "id": "9648", "isChosen": false },
+        { "name": "Sci-Fi", "id": "878", "isChosen": false },
+        { "name": "War", "id": "10752", "isChosen": false },
+        { "name": "Western", "id": "37", "isChosen": false }
+    ]);
 
-    const genreList = [
-        { "genre": "Action", "id": 28 },
-        { "genre": "Adventure", "id": 12 },
-        { "genre": "Animation", "id": 16 },
-        { "genre": "Crime", "id": 80 },
-        { "genre": "Family", "id": 10751 },
-        { "genre": "Fantasy", "id": 14 },
-        { "genre": "History", "id": 36 },
-        { "genre": "Horror", "id": 27 },
-        { "genre": "Mystery", "id": 9648 },
-        { "genre": "Sci-Fi", "id": 878 },
-        { "genre": "War", "id": 10752 },
-        { "genre": "Western", "id": 37 }
-    ];
-
-    // Listen for Firebase Auth state changes
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
-            setUser(firebaseUser);
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                setUser(user);
+
+                async function getFromFireStore() {
+                    const docRef = doc(firestore, "users", user.uid);
+                    const docSnap = await getDoc(docRef);
+                    if (docSnap.exists()) {
+                        const data = docSnap.data();
+
+                        if (data?.purchaseHistory) {
+                            const parsedPurchaseHistory = Object.entries(data.purchaseHistory).map(([key, value]) => [parseInt(key, 10), value]);
+                            setPurHis(Map(parsedPurchaseHistory));
+                        }
+
+                        const preferedGenres = data.genrePreferences;
+                        setGenres(genres.map(genre => ({ ...genre, isChosen: preferedGenres.includes(genre.id) })))
+                    }
+                }
+                getFromFireStore();
+
+                const storedCart = localStorage.getItem(`${user.uid}-cart`);
+                if (storedCart) {
+                    const parsedCart = JSON.parse(storedCart);
+                    const cartWithIntKeys = Object.entries(parsedCart).map(([key, value]) => [parseInt(key, 10), value]);
+                    setCart(Map(cartWithIntKeys));
+                }
+            } else {
+                setUser(null);
+                setCart(Map());
+                setPurHis(Map());
+                setGenres(prevGenres => prevGenres.map(genre => ({ ...genre, isChosen: false })));
+            }
+            setLoading(false);
         });
-        return () => unsubscribe();
     }, []);
 
-    // Load from localStorage on mount
-    useEffect(() => {
-        const cartData = localStorage.getItem("cart");
-        if (cartData) setCart(Map(JSON.parse(cartData)));
-        const purchaseData = localStorage.getItem("purchases");
-        if (purchaseData) setPurchases(JSON.parse(purchaseData));
-    }, []);
-
-    // Save cart and purchases to localStorage
-    useEffect(() => {
-        localStorage.setItem("cart", JSON.stringify(cart.toObject()));
-    }, [cart]);
-    useEffect(() => {
-        localStorage.setItem("purchases", JSON.stringify(purchases));
-    }, [purchases]);
+    if (loading) {
+        return <div>Loading...</div>;
+    }
 
     return (
-        <StoreContext.Provider value={{
-            user, setUser, fName, setFName, lName, setLName, email, setEmail,
-            cart, setCart, search, setSearch, fGenre, setFGenre, genreList, purchases, setPurchases
-        }}>
+        <StoreContext.Provider value={{ user, setUser, purHis, setPurHis, cart, setCart, genres, setGenres }}>
             {children}
         </StoreContext.Provider>
-    );
-};
+    )
+}
 
-export const useStoreContext = () => useContext(StoreContext);
+export const useStoreContext = () => {
+    return useContext(StoreContext);
+}
