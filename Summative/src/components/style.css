@@ -98,31 +98,49 @@ body {
 }
 /* style.css */
 
-.header {
+/* Header container */
+#header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 18px 40px;
-  background: linear-gradient(90deg, #2c3e50, #34495e); /* 改成 genre-list 的配色 */
-  color: #ecf0f1; /* 浅灰白，与 genre-list 一致 */
+  background: linear-gradient(90deg, #2c3e50, #34495e);
+  color: #ecf0f1;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
   border-bottom: 1px solid #1f2d3a;
 }
 
-.header h1 {
-  font-size: 2rem;
-  font-weight: bold;
-  margin: 0;
-  color: #f39c12; /* 和 genre-button.active 一致的亮黄色 */
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+/* Site title button */
+.title {
+  background-color: #f39c12;
+  color: white;
+  font-size: 1.8rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 12px;
+  padding: 10px 24px;
   cursor: pointer;
-  transition: color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.header h1:hover {
-  color: #ffa502; /* hover 时更亮的黄橙色 */
+.title:hover {
+  background-color: #3e78db;
+  transform: translateY(-2px);
 }
 
+.title:active {
+  transform: scale(0.98);
+}
+
+/* User greeting */
+.nameCard {
+  font-size: 1.4rem;
+  margin: 0 20px;
+  color: #f39c12;
+  font-weight: 600;
+}
+
+/* Buttons in the header */
 .headerButtons {
   background-color: #f39c12;
   color: #ffffff;
@@ -131,6 +149,7 @@ body {
   border-radius: 4px;
   cursor: pointer;
   font-weight: 600;
+  margin-left: 10px;
   transition: background-color 0.3s ease;
 }
 
@@ -138,6 +157,7 @@ body {
   background-color: #e67e22;
 }
 
+/* Search input */
 #searchBar {
   padding: 7px 10px;
   border-radius: 4px;
@@ -145,6 +165,7 @@ body {
   font-size: 1rem;
   background-color: #ecf0f1;
   color: #2c3e50;
+  margin-left: 20px;
   transition: box-shadow 0.3s ease;
 }
 
@@ -152,10 +173,13 @@ body {
   box-shadow: 0 0 5px 2px #f39c12;
 }
 
+/* Layout for buttons container if needed */
 .button {
   display: flex;
   gap: 10px;
+  align-items: center;
 }
+
 
 .LoginBtm,
 .Register {

@@ -1,17 +1,25 @@
 import { NavLink } from "react-router-dom";
-import "./style.css"
+import "./style.css";
 
 function Genres(props) {
     return (
-        <div>
-            <h1 id="gTitle">Genres</h1>
-            {props.genre.filter(genre => genre.isChosen).map(genre => (
-                <div key={genre.id} className="moviesNav">
-                    <NavLink to={`genres/${genre.id}`} className="genreButtons">{genre.name}</NavLink>
-                </div>
-            ))}
+        <div className="genre-list">
+            <h3>Genres</h3>
+            {props.genre
+                .filter(genre => genre.isChosen)
+                .map(genre => (
+                    <NavLink
+                        key={genre.id}
+                        to={`genres/${genre.id}`}
+                        className={({ isActive }) =>
+                            `genre-button${isActive ? " active" : ""}`
+                        }
+                    >
+                        {genre.name}
+                    </NavLink>
+                ))}
         </div>
-    )
+    );
 }
 
 export default Genres;

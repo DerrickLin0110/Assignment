@@ -30,6 +30,7 @@ function LoginView() {
             setGenres(genres.map(genre => ({ ...genre, isChosen: preferedGenres.includes(genre.id) })))
             navigate(`/movies/genres/${preferedGenres[0]}`);
         } catch (error) {
+            setUser(null); // 登录失败时清空 user 状态
             alert("Invalid login");
         }
     };
@@ -48,6 +49,7 @@ function LoginView() {
             setGenres(genres.map(genre => ({ ...genre, isChosen: preferedGenres.includes(genre.id) })))
             navigate(`/movies/genres/${preferedGenres[0]}`);
         } catch (error) {
+            setUser(null); // 登录失败时清空 user 状态
             alert("Google sign-in error");
         }
     };
