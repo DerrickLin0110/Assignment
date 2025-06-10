@@ -11,7 +11,7 @@ import { firestore } from '../firebase';
 
 function LoginView() {
     const navigate = useNavigate();
-    const { setUser, genres, setGenres, cart } = useStoreContext();
+    const { setUser, genres, setGenres } = useStoreContext();
     const [form, setForm] = useState({ email: '', password: '' });
 
     const handleChange = e => setForm({ ...form, [e.target.name]: e.target.value });
