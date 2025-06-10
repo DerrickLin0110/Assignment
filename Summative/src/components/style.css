@@ -23,17 +23,6 @@ body {
     margin-top: 10px;
 }
 
-.LoginBtm,
-.Register {
-    color: black;
-    background-color: rgb(233, 229, 23);
-    padding: 10px 20px;
-    font-size: 16px;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-}
-
 .hero.section {
     position: relative;
     text-align: center;

@@ -53,6 +53,7 @@
 }
 
 .checkboxGroup input[type="checkbox"] {
+  right: 10px;
   margin-right: 10px;
   width: 18px;
   height: 18px;

@@ -22,38 +22,35 @@ function LoginView() {
             const result = await signInWithEmailAndPassword(auth, form.email, form.password);
             const loggedInUser = result.user;
             setUser(loggedInUser);
-
+    
             const docRef = doc(firestore, "users", loggedInUser.uid);
             const docSnap = await getDoc(docRef);
             const data = docSnap.data();
             const preferedGenres = data.genrePreferences;
-            setGenres(genres.map(genre => ({ ...genre, isChosen: preferedGenres.includes(genre.id) })))
-            navigate(`/movies/genres/${preferedGenres[0]}`);
+            setGenres(genres.map(genre => ({ ...genre, isChosen: preferedGenres.includes(genre.id) })));
+            navigate(`/movies/genres/${preferedGenres[0]}`); // Fixed line
         } catch (error) {
-            setUser(null); // 登录失败时清空 user 状态
-            alert("Invalid login");
+            console.error("Login error:", error.message);
         }
     };
-
+    
     const googleSignIn = async () => {
         const provider = new GoogleAuthProvider();
         try {
             const result = await signInWithPopup(auth, provider);
             const loggedInUser = result.user;
             setUser(loggedInUser);
-
+    
             const docRef = doc(firestore, "users", loggedInUser.uid);
             const docSnap = await getDoc(docRef);
             const data = docSnap.data();
             const preferedGenres = data.genrePreferences;
-            setGenres(genres.map(genre => ({ ...genre, isChosen: preferedGenres.includes(genre.id) })))
-            navigate(`/movies/genres/${preferedGenres[0]}`);
+            setGenres(genres.map(genre => ({ ...genre, isChosen: preferedGenres.includes(genre.id) })));
+            navigate(`/movies/genres/${preferedGenres[0]}`); // Fixed line
         } catch (error) {
-            setUser(null); // 登录失败时清空 user 状态
-            alert("Google sign-in error");
+            console.error("Login error:", error.message);
         }
     };
-
     return (
         <div>
             <Header />
@@ -62,7 +59,7 @@ function LoginView() {
                 <form onSubmit={handleSubmit}>
                     <input id="email" type="email" className="input" name="email" placeholder="Email" autoComplete="on" onChange={handleChange} required />
                     <input id="password" type="password" className="input" name="password" placeholder="Password" onChange={handleChange} required />
-                    <input id="loginButton" type="submit" value="Login" />
+                    <input id="loginButton" className="submitBtn" type="submit" value="Login" />
                 </form>
                 <button onClick={googleSignIn} className="googleSigninBtn"><img src="googleIcon.png" className="googleIcon"></img> Google Sign In</button>
             </div>
